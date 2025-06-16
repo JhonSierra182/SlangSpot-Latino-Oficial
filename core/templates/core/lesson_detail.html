@@ -1,0 +1,458 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="lesson-detail-container">
+    <!-- Hero Section con Imagen de Portada -->
+    <div class="lesson-hero" style="background-image: url('{{ lesson.get_cover_image_url }}')">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>{{ lesson.title }}</h1>
+                <div class="lesson-meta">
+                    <span class="badge difficulty-{{ lesson.difficulty }}">
+                        {{ lesson.get_difficulty_display }}
+                    </span>
+                    <span class="badge category-{{ lesson.category }}">
+                        {{ lesson.get_category_display }}
+                    </span>
+                    <span class="badge country">
+                        {{ lesson.get_country_display }}
+                    </span>
+                </div>
+                {% if user.is_staff %}
+                <div class="admin-actions">
+                    <a href="{% url 'edit_lesson' lesson.id %}" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="{% url 'delete_lesson' lesson.id %}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="lesson-content">
+        <div class="content-wrapper">
+            <!-- Descripción -->
+            <section class="lesson-section">
+                <h2>Descripción</h2>
+                <div class="description-content">
+                    {{ lesson.description|linebreaks }}
+                </div>
+            </section>
+
+            <!-- Notas Culturales -->
+            {% if lesson.cultural_notes %}
+            <section class="lesson-section">
+                <h2>Notas Culturales</h2>
+                <div class="cultural-notes">
+                    {{ lesson.cultural_notes|linebreaks }}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Video -->
+            {% if lesson.video_url %}
+            <section class="lesson-section">
+                <h2>Video de la Lección</h2>
+                <div class="video-container">
+                    <iframe 
+                        src="{{ lesson.video_url }}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Expresiones -->
+            <section class="lesson-section">
+                <div class="section-header">
+                    <h2>Expresiones</h2>
+                    {% if user.is_staff %}
+                    <a href="{% url 'create_expression' lesson.id %}" class="btn btn-danger">
+                        <i class="fas fa-plus"></i> Añadir Expresión
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="expressions-grid">
+                    {% for expression in expressions %}
+                    <div class="expression-card">
+                        <div class="expression-header">
+                            <h3 class="expression-text">{{ expression.text }}</h3>
+                            {% if user.is_staff %}
+                            <div class="expression-actions">
+                                <a href="{% url 'edit_expression' lesson.id expression.id %}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'delete_expression' lesson.id expression.id %}" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="expression-content">
+                            <div class="expression-section">
+                                <h4 class="section-title">Significado:</h4>
+                                <p class="section-content">{{ expression.meaning }}</p>
+                            </div>
+                            {% if expression.example %}
+                            <div class="expression-section">
+                                <h4 class="section-title">Ejemplo:</h4>
+                                <p class="section-content example">{{ expression.example }}</p>
+                            </div>
+                            {% endif %}
+                            {% if expression.audio %}
+                            <div class="expression-section">
+                                <h4 class="section-title">Audio:</h4>
+                                <audio controls class="audio-player">
+                                    <source src="{{ expression.audio.url }}" type="audio/mpeg">
+                                    Tu navegador no soporta el elemento de audio.
+                                </audio>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="no-expressions">
+                        <p>No hay expresiones disponibles para esta lección.</p>
+                        {% if user.is_staff %}
+                        <a href="{% url 'create_expression' lesson.id %}" class="btn btn-danger">
+                            <i class="fas fa-plus"></i> Añadir Primera Expresión
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<style>
+.lesson-detail-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.lesson-hero {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+}
+
+.hero-content {
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.lesson-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.difficulty-beginner { background-color: #28a745; color: white; }
+.difficulty-intermediate { background-color: #ffc107; color: black; }
+.difficulty-advanced { background-color: #dc3545; color: white; }
+.category-slang { background-color: #17a2b8; color: white; }
+.category-proverb { background-color: #6f42c1; color: white; }
+.country { background-color: #6c757d; color: white; }
+
+.lesson-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.content-wrapper {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.lesson-section {
+    margin-bottom: 3rem;
+}
+
+.lesson-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.description-content, .cultural-notes {
+    line-height: 1.6;
+    color: #495057;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.expressions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .expressions-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .expressions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .expressions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.expression-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+    transition: transform 0.2s;
+}
+
+.expression-card:hover {
+    transform: translateY(-5px);
+}
+
+.expression-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.expression-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.expression-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.expression-section {
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 6px;
+}
+
+.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin: 0 0 0.25rem 0;
+}
+
+.section-content {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #495057;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.section-content.example {
+    font-style: italic;
+    color: #6c757d;
+}
+
+.audio-player {
+    width: 100%;
+    margin-top: 0.25rem;
+    height: 32px;
+}
+
+.expression-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.no-expressions {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    grid-column: 1 / -1;
+}
+
+.no-expressions p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.admin-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn i {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .lesson-hero {
+        height: 300px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .content-wrapper {
+        padding: 1rem;
+    }
+    
+    .expressions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const audioButtons = document.querySelectorAll('.audio-btn');
+    let currentAudio = null;
+
+    audioButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const audioUrl = this.dataset.audioUrl;
+            const icon = this.querySelector('i');
+            
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                document.querySelectorAll('.audio-btn i').forEach(i => {
+                    i.className = 'fas fa-play';
+                });
+            }
+            
+            if (icon.classList.contains('fa-play')) {
+                currentAudio = new Audio(audioUrl);
+                currentAudio.play();
+                icon.className = 'fas fa-stop';
+                
+                currentAudio.onended = function() {
+                    icon.className = 'fas fa-play';
+                    currentAudio = null;
+                };
+            }
+        });
+    });
+});
+</script>
+{% endblock %} 

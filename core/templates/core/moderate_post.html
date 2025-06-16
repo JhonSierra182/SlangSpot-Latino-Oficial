@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="moderate-post-section">
+    <div class="container">
+        <h1 class="section-title">Moderar Publicación</h1>
+        <div class="moderation-options">
+            <form method="post">
+                {% csrf_token %}
+                <div class="moderation-actions">
+                    <button type="submit" name="action" value="pin" class="btn {% if post.is_pinned %}btn-secondary{% else %}btn-primary{% endif %}">
+                        {% if post.is_pinned %}
+                            <i class="fas fa-thumbtack"></i> Desfijar
+                        {% else %}
+                            <i class="fas fa-thumbtack"></i> Fijar
+                        {% endif %}
+                    </button>
+                    <button type="submit" name="action" value="close" class="btn {% if post.is_closed %}btn-secondary{% else %}btn-primary{% endif %}">
+                        {% if post.is_closed %}
+                            <i class="fas fa-lock-open"></i> Abrir
+                        {% else %}
+                            <i class="fas fa-lock"></i> Cerrar
+                        {% endif %}
+                    </button>
+                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </form>
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

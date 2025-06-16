@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Buscar - SlangSpot{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Resultados de búsqueda</h1>
+    
+    <form method="get" action="{% url 'search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Buscar lecciones y posts..." value="{{ query }}">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+    </form>
+
+    {% if query %}
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Lecciones</h2>
+                {% if lessons %}
+                    <div class="list-group">
+                        {% for lesson in lessons %}
+                            <a href="{% url 'lesson_detail' lesson.id %}" class="list-group-item list-group-item-action">
+                                <h5 class="mb-1">{{ lesson.title }}</h5>
+                                <p class="mb-1">{{ lesson.description|truncatewords:30 }}</p>
+                                <small class="text-muted">
+                                    Dificultad: {{ lesson.get_difficulty_display }} | 
+                                    País: {{ lesson.get_country_display }}
+                                </small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No se encontraron lecciones que coincidan con tu búsqueda.</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <h2>Posts del Foro</h2>
+                {% if posts %}
+                    <div class="list-group">
+                        {% for post in posts %}
+                            <a href="{% url 'post_detail' post.id %}" class="list-group-item list-group-item-action">
+                                <h5 class="mb-1">{{ post.title }}</h5>
+                                <p class="mb-1">{{ post.content|truncatewords:30 }}</p>
+                                <small class="text-muted">
+                                    Por {{ post.author.username }} | 
+                                    {{ post.created_at|timesince }} atrás
+                                </small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No se encontraron posts que coincidan con tu búsqueda.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Ingresa un término de búsqueda para encontrar lecciones y posts.
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

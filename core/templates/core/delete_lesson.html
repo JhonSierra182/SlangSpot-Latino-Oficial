@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="delete-lesson-container">
+    <div class="confirmation-box">
+        <h1>Eliminar Lección</h1>
+        <p class="warning-text">¿Estás seguro de que deseas eliminar la lección "{{ lesson.title }}"?</p>
+        <p class="warning-note">Esta acción no se puede deshacer.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+                <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.delete-lesson-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.confirmation-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.warning-text {
+    color: #dc3545;
+    font-size: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.warning-note {
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+</style>
+{% endblock %} 

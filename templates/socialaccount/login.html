@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-card">
+        <h2 class="auth-title">{% trans "Social Network Login" %}</h2>
+        
+        {% if process == "connect" %}
+            <p>{% blocktrans with provider.name as provider %}Usted está a punto de conectar su cuenta existente con su cuenta de {{ provider }}.{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans with provider.name as provider %}Se dispone a iniciar sesión en SlangSpot Latino usando su cuenta de {{ provider }}.{% endblocktrans %}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="auth-button">{% trans "Continuar" %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %} 

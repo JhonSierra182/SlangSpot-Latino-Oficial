@@ -1,0 +1,78 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inicio - SlangSpot{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Aprende el español real de Latinoamérica</h1>
+            <p class="hero-subtitle">Descubre expresiones, modismos y jerga de diferentes países latinoamericanos</p>
+            {% if not user.is_authenticated %}
+                <div class="hero-buttons">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Comenzar Ahora</a>
+                    <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg">Iniciar Sesión</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<section class="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap feature-icon"></i>
+                    <h3>Lecciones Interactivas</h3>
+                    <p>Aprende con lecciones estructuradas y ejercicios prácticos para dominar el español latinoamericano.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-comments feature-icon"></i>
+                    <h3>Foro de Discusión</h3>
+                    <p>Únete a conversaciones con otros estudiantes y hablantes nativos para practicar y aprender.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-globe-americas feature-icon"></i>
+                    <h3>Cultura Latinoamericana</h3>
+                    <p>Explora la rica diversidad cultural y lingüística de los países latinoamericanos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="latest-lessons">
+    <div class="container">
+        <h2 class="section-title">Últimas Lecciones</h2>
+        <div class="row">
+            {% for lesson in latest_lessons %}
+                <div class="col-md-4">
+                    <div class="lesson-card">
+                        {% if lesson.cover_image %}
+                            <img src="{{ lesson.cover_image.url }}" alt="{{ lesson.title }}" class="lesson-card-img">
+                        {% endif %}
+                        <div class="lesson-card-content">
+                            <h3>{{ lesson.title }}</h3>
+                            <p>{{ lesson.description|truncatewords:20 }}</p>
+                            <div class="lesson-meta">
+                                <span class="badge bg-primary">{{ lesson.get_difficulty_display }}</span>
+                                <span class="badge bg-secondary">{{ lesson.country }}</span>
+                            </div>
+                            <a href="{% url 'lesson_detail' lesson.slug %}" class="btn btn-outline-primary">Ver Lección</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center">No hay lecciones disponibles en este momento.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,1265 @@
+@charset "UTF-8";
+:root {
+    /* Paleta Principal del Sitio */
+    --azul-llamativo: #007BFF;
+    --rojo-cta: #DC3545;
+    --gris-texto: #212529;
+    --gris-claro: #F8F9FA;
+    --blanco: #FFFFFF;
+    --borde: #DEE2E6;
+
+    /* Paleta de Colombia para Autenticación */
+    --amarillo-colombia: #FCD116;
+    --azul-colombia: #003893;
+    --rojo-colombia: #CE1126;
+
+    /* Variables globales */
+    --azul-hover: #0056b3;
+    --gris-medio: #e9ecef;
+    --gris-oscuro: #343a40;
+    --verde-exito: #28a745;
+    --rojo-error: #dc3545;
+    --amarillo-alerta: #ffc107;
+    --sombra-suave: 0 2px 4px rgba(0,0,0,0.1);
+    --sombra-media: 0 4px 6px rgba(0,0,0,0.1);
+    --sombra-fuerte: 0 10px 15px rgba(0,0,0,0.1);
+    --transicion-rapida: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--blanco);
+    color: var(--gris-texto);
+    line-height: 1.6;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos Generales */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.text-center { text-align: center; }
+.section-title { text-align: center; font-size: 2.25rem; margin-bottom: 3rem; }
+
+/* Estilos de Navegación */
+.navbar {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--borde);
+    background-color: var(--blanco);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--gris-texto);
+}
+
+.nav-logo-img { 
+    height: 60px; 
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--gris-texto);
+    font-weight: 500;
+    margin-right: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.nav-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+}
+
+/* Botones de Navegación */
+.nav-button-primary,
+.nav-button-secondary {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-button-primary:hover,
+.nav-button-secondary:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+/* Botón de Google */
+.social-button.google {
+    background-color: var(--blanco);
+    color: #444;
+    border: 1px solid var(--borde);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.social-button.google i {
+    color: #444;
+}
+
+.social-button.google:hover {
+    background-color: var(--gris-claro);
+}
+
+/* Botón de autenticación */
+.auth-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--rojo-colombia);
+    color: var(--blanco);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.auth-button:hover {
+    opacity: 0.9;
+}
+
+/* Sección Hero */
+.hero {
+    background-color: var(--azul-llamativo);
+    color: var(--blanco);
+    padding: 6rem 0;
+    position: relative;
+    background-image: url('../core/images/slangspot-logo.png');
+    background-repeat: no-repeat;
+    background-position: right 10% center;
+    background-size: 350px;
+    text-align: center;
+}
+
+.hero .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero h1 { 
+    font-size: 4rem; 
+    font-weight: 800; 
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.brand-name {
+    color: var(--rojo-cta);
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    position: relative;
+}
+
+.brand-name::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--rojo-cta);
+    border-radius: 2px;
+}
+
+.hero-subtitle { 
+    font-size: 1.3rem; 
+    max-width: 700px; 
+    margin: 0 auto 2.5rem auto; 
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: var(--rojo-cta);
+    color: var(--blanco);
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hero con dos columnas */
+.hero-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    text-align: left;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-video {
+    flex-shrink: 0;
+    width: 45%;
+}
+
+/* Estilos para la miniatura del video */
+.video-thumbnail {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.3s ease;
+}
+
+.video-thumbnail:hover .play-icon {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Sección de Canales */
+.channels-section { padding: 5rem 0; background-color: var(--gris-claro); }
+.channels-section h2 { text-align: center; font-size: 2rem; margin-bottom: 3rem; }
+.channels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.channel-card {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+.channel-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.channel-card h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+.channel-card p { margin-bottom: 1.5rem; }
+.card-button {
+    background: var(--blanco);
+    color: var(--azul-llamativo);
+    border: 1px solid var(--azul-llamativo);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.2s;
+}
+.card-button:hover { background-color: var(--azul-llamativo); color: var(--blanco); }
+.youtube { color: #FF0000; }
+.podcast { color: #AE40A7; }
+.italki { color: #FF7A00; }
+.paypal { color: #0070BA; }
+
+/* Footer */
+.footer { padding: 2rem 0; background-color: var(--gris-texto); color: var(--blanco); text-align: center; }
+
+/* Secciones Generales y Layouts de Grid */
+.value-section, .dictionary-section { padding: 5rem 0; }
+.grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.grid-layout-four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+
+/* Tarjetas de Valor */
+.value-card { background-color: var(--gris-claro); padding: 2rem; border-radius: 12px; text-align: center; }
+.value-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.value-card p {
+    font-size: 1.1rem;
+}
+
+/* Lista del Diccionario */
+.expression-item {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+.expression-term { font-size: 1.5rem; font-weight: bold; color: var(--azul-llamativo); }
+.expression-meaning { font-size: 1rem; }
+
+.form-container {
+  max-width: 500px;
+  margin: 5rem auto;
+  padding: 3rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+}
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.form-container form p {
+  margin-bottom: 1rem;
+}
+.form-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.form-container input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+}
+.form-container .helptext {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+.form-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Estilos para Páginas de Autenticación (Registro/Login) */
+.auth-page {
+    background-color: var(--gris-claro);
+    padding: 4rem 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.auth-card {
+    max-width: 450px;
+    margin: 0 auto;
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    border-top: 5px solid var(--amarillo-colombia);
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--azul-bandera);
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--gris-texto);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+.form-error {
+    color: var(--rojo-bandera);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.auth-redirect {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* Divisor 'o' */
+.social-login-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
+  color: #adb5bd;
+}
+.divider-line {
+  flex-grow: 1;
+  border-bottom: 1px solid #dee2e6;
+}
+.divider-text {
+  padding: 0 1rem;
+}
+
+/* Botones de Login Social */
+.social-login-buttons {
+  text-align: center;
+}
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--gris-texto);
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s;
+}
+.social-button:hover {
+  background-color: var(--gris-claro);
+}
+.social-button i {
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+}
+.social-button.google {
+    background-color: var(--blanco) !important;
+    color: #444 !important;
+    border: 1px solid var(--borde) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+}
+.social-button.google i {
+    color: #444 !important;
+}
+
+/* --- REGLAS DE NAVEGACIÓN FORZADAS --- */
+
+/* Ajuste específico para el botón de cerrar sesión */
+button.nav-button-secondary {
+    cursor: pointer !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    background-color: var(--azul-llamativo) !important;
+    color: var(--blanco) !important;
+}
+
+/* --- FIN DE REGLAS FORZADAS --- */
+
+/* Estilos del Foro */
+.forum-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.forum-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.forum-post {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.post-title {
+    color: var(--azul-llamativo);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    color: var(--gris-texto);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.post-content {
+    color: var(--gris-texto);
+    line-height: 1.6;
+}
+
+.no-posts {
+    text-align: center;
+    color: var(--gris-texto);
+    padding: 2rem;
+    background: var(--gris-claro);
+    border-radius: 8px;
+}
+
+/* Estilos para los cuadros informativos */
+.info-cards {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+}
+
+.info-cards .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.info-cards .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-cards .card:hover {
+    transform: translateY(-5px);
+}
+
+.info-cards .card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.info-cards .card h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.info-cards .card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Estilos para la sección de donación */
+.donation-section {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.donation-section h2 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.donation-section p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.paypal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.paypal-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #0070ba;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.paypal-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #005ea6;
+}
+
+.paypal-logo {
+    height: 30px;
+    width: auto;
+}
+
+.paypal-button span {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Sección de Video de Bienvenida */
+.welcome-video-section {
+    padding: 4rem 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.welcome-video-section h2 {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.video-description {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+.video-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.video-thumbnail {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.02);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    display: block;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.3s ease;
+}
+
+.video-thumbnail:hover .play-icon {
+    color: rgba(255, 255, 255, 1);
+}
+
+.lessons-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+.lessons-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+}
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.lesson-card {
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.lesson-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+}
+.lesson-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+.lesson-difficulty {
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+}
+.lesson-difficulty.beginner { background: #4caf50; }
+.lesson-difficulty.intermediate { background: #ff9800; }
+.lesson-difficulty.advanced { background: #e53935; }
+.lesson-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+}
+.lesson-description {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+}
+.lesson-category, .lesson-country {
+    display: inline-block;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-detail-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+.lesson-detail-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.lesson-detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+.lesson-main {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+.lesson-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.lesson-description, .lesson-cultural-notes {
+    margin-bottom: 2rem;
+}
+.lesson-description h2, .lesson-cultural-notes h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text-color);
+}
+.lesson-description p, .lesson-cultural-notes p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+.lesson-sidebar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+.lesson-sidebar h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+.expressions-list {
+    list-style: none;
+    padding: 0;
+}
+.expression-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+}
+.expression-term {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.expression-meaning {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.post-detail-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+.post-detail-section .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.post-header {
+    margin-bottom: 2rem;
+}
+.post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.post-meta {
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+.post-content {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+.comments-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+.comments-section h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+.comment {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+.comment-meta {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+.comment-author {
+    font-weight: 600;
+    color: var(--text-color);
+}
+.comment-date {
+    margin-left: 0.5rem;
+}
+.comment-content {
+    font-size: 1.05rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+.comment-form-container {
+    margin-top: 2rem;
+}
+.comment-form-container h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    resize: vertical;
+}
+.comment-form button[type="submit"] {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    margin-top: 1rem !important;
+    width: auto !important;
+}
+.comment-form button[type="submit"]:hover {
+    background-color: #c82333 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2) !important;
+}
+
+.create-post-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+.create-post-section .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+}
+.create-post-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn:hover {
+    background: var(--primary-dark);
+}
+
+.create-lesson-section {
+    padding: 4rem 0;
+    background: var(--light-bg);
+}
+.create-lesson-section .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.create-lesson-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+.form-error {
+    color: #e53935;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+.create-lesson-button {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.create-lesson-button .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.create-lesson-button .btn:hover {
+    background: var(--primary-dark);
+}
+
+main {
+    flex-grow: 1; /* Esta es la magia: hace que el contenido principal crezca y empuje el footer hacia abajo */
+}
+
+/* Contenedor ancho para páginas de contenido y formularios largos */
+.content-card {
+    max-width: 800px; /* Un ancho más generoso que los 450px de .auth-card */
+    margin: 0 auto;
+    background: var(--blanco);
+    padding: 2.5rem 3rem; /* Un poco más de padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    border-top: 5px solid var(--azul-llamativo); /* Usamos el azul para diferenciarlo */
+}
+
+/* Estilos para el botón de crear lección */
+.btn-create {
+    display: inline-flex; /* Permite alinear el ícono y el texto */
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre el ícono y el texto */
+    padding: 0.75rem 1.5rem;
+    background-color: var(--azul-llamativo); /* Usamos el azul principal */
+    color: var(--blanco);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px; /* Bordes menos redondeados, más profesional */
+    transition: all 0.2s ease;
+    border: 1px solid var(--azul-llamativo);
+}
+
+.btn-create:hover {
+    background-color: var(--blanco);
+    color: var(--azul-llamativo);
+}
+
+/* --- Estilos para la Página de Creación de Contenido --- */
+.page-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 3rem auto;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--borde);
+    padding-bottom: 1.5rem;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+}
+
+.form-layout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Columna principal 2/3, lateral 1/3 */
+    gap: 3rem;
+}
+
+.form-main-column, .form-sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.form-section input[type="text"],
+.form-section input[type="url"],
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-section textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Estilo para el selector de muchos-a-muchos de Django Admin */
+.select2-container { 
+    width: 100% !important;
+}
+
+.selector-chosen h2 { 
+    display: none !important; 
+} /* Ocultar títulos feos del widget */
+
+/* Estilos para el botón de enviar comentario */
+.send-comment-button {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    margin-top: 1rem !important;
+    width: auto !important;
+}
+
+.send-comment-button:hover {
+    background-color: #c82333 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2) !important;
+}
+
+/* Estilos para el buscador */
+.search-box input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    padding-right: 3rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    outline: none;
+}
+
+/* Estilos para el selector de categorías */
+.category-filter select {
+    padding: 1rem 1.2rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    min-width: 250px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-filter select:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    outline: none;
+}
+
+/* Estilos para el botón de Me gusta */
+.like-button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.like-button:hover {
+    color: #dc3545;
+}
+
+.like-button.liked {
+    color: #dc3545;
+}
+
+.like-button i {
+    font-size: 1.2rem;
+}
+
+/* Estilos para el botón de enviar comentario */
+.comment-form button[type="submit"],
+.send-comment-button {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    margin-top: 1rem !important;
+    width: auto !important;
+}
+
+.comment-form button[type="submit"]:hover,
+.send-comment-button:hover {
+    background-color: #c82333 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2) !important;
+} 

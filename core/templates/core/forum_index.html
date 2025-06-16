@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="forum-header">
+        <h1 class="section-title">Foro de SlangSpot Latino</h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'create_post' %}" class="auth-button" style="max-width: 200px; margin: 0 auto;">Añadir Nueva Publicación</a>
+        {% endif %}
+    </div>
+
+    <div class="forum-filters">
+        <form method="get" class="search-form">
+            <div class="search-box">
+                <input type="text" name="q" value="{{ search_query }}" placeholder="Buscar en el foro...">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="category-filter">
+                <select name="category" onchange="this.form.submit()">
+                    <option value="">Todas las categorías</option>
+                    {% for value, label in categories.items %}
+                        <option value="{{ value }}" {% if value == current_category %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="forum-posts">
+        {% for post in posts %}
+            <div class="forum-post {% if post.is_pinned %}pinned{% endif %}">
+                {% if post.is_pinned %}
+                    <div class="pin-badge"><i class="fas fa-thumbtack"></i> Fijado</div>
+                {% endif %}
+                <div class="post-header">
+                    <h2 class="post-title">
+                        <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                        {% if post.is_closed %}
+                            <span class="closed-badge">Cerrado</span>
+                        {% endif %}
+                    </h2>
+                    <div class="post-meta">
+                        <span class="post-author">Por {{ post.author.username }}</span>
+                        <span class="post-date">{{ post.created_at|date:"d/m/Y H:i" }}</span>
+                        <span class="post-category">{{ post.get_category_display }}</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    {{ post.content|truncatewords:50|linebreaks }}
+                </div>
+                <div class="post-footer">
+                    <div class="post-stats">
+                        <span><i class="fas fa-comments"></i> {{ post.comments.count }} comentarios</span>
+                        <span><i class="fas fa-heart"></i> {{ post.likes.count }} me gusta</span>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="post-actions">
+                            {% if post.can_edit %}
+                                <a href="{% url 'edit_post' post.id %}" class="action-button edit">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                            {% endif %}
+                            {% if post.can_delete %}
+                                <a href="{% url 'delete_post' post.id %}" class="action-button delete">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            {% endif %}
+                            {% if post.can_moderate %}
+                                <a href="{% url 'moderate_post' post.id %}" class="action-button moderate">
+                                    <i class="fas fa-shield-alt"></i> Moderar
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p class="no-posts">No hay publicaciones aún. ¡Sé el primero en publicar!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

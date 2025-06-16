@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="post-detail-section">
+    <div class="container">
+        <div class="post-header">
+            <h1 class="post-title">
+                {{ post.title }}
+                {% if post.is_closed %}
+                    <span class="closed-badge">Cerrado</span>
+                {% endif %}
+            </h1>
+            <div class="post-meta">
+                <span class="post-author">Por {{ post.author.username }}</span>
+                <span class="post-date">{{ post.created_at|date:"d/m/Y H:i" }}</span>
+                <span class="post-category">{{ post.get_category_display }}</span>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="post-actions">
+                    {% if post.can_edit %}
+                        <a href="{% url 'edit_post' post.id %}" class="action-button edit">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                    {% endif %}
+                    {% if post.can_delete %}
+                        <a href="{% url 'delete_post' post.id %}" class="action-button delete">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    {% endif %}
+                    {% if post.can_moderate %}
+                        <a href="{% url 'moderate_post' post.id %}" class="action-button moderate">
+                            <i class="fas fa-shield-alt"></i> Moderar
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="post-content">
+            {{ post.content|linebreaks }}
+        </div>
+
+        <div class="post-stats">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'like_post' post.id %}" class="like-form">
+                    {% csrf_token %}
+                    <button type="submit" class="like-button {% if user in post.likes.all %}liked{% endif %}">
+                        <i class="fas fa-heart"></i> {{ post.likes.count }} me gusta
+                    </button>
+                </form>
+            {% else %}
+                <span class="like-count"><i class="fas fa-heart"></i> {{ post.likes.count }} me gusta</span>
+            {% endif %}
+            <span><i class="fas fa-comments"></i> {{ post.comments.count }} comentarios</span>
+        </div>
+
+        <div class="comments-section">
+            <h2>Comentarios</h2>
+            {% for comment in comments %}
+                <div class="comment {% if comment.is_reply %}reply{% endif %}">
+                    <div class="comment-meta">
+                        <span class="comment-author">{{ comment.user.username }}</span>
+                        <span class="comment-date">{{ comment.created_at|date:"d/m/Y H:i" }}</span>
+                    </div>
+                    <div class="comment-content">
+                        {{ comment.content|linebreaks }}
+                    </div>
+                    <div class="comment-actions">
+                        {% if user.is_authenticated and not post.is_closed %}
+                            <a href="{% url 'reply_comment' post.id comment.id %}" class="action-button reply">
+                                <i class="fas fa-reply"></i> Responder
+                            </a>
+                        {% endif %}
+                        {% if comment.user == user or user.is_superuser %}
+                            <a href="{% url 'edit_comment' post.id comment.id %}" class="action-button edit">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'delete_comment' post.id comment.id %}" class="action-button delete">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
+                        {% endif %}
+                    </div>
+                    {% for reply in comment.get_replies %}
+                        <div class="comment reply">
+                            <div class="comment-meta">
+                                <span class="comment-author">{{ reply.user.username }}</span>
+                                <span class="comment-date">{{ reply.created_at|date:"d/m/Y H:i" }}</span>
+                            </div>
+                            <div class="comment-content">
+                                {{ reply.content|linebreaks }}
+                            </div>
+                            <div class="comment-actions">
+                                {% if reply.user == user or user.is_superuser %}
+                                    <a href="{% url 'edit_comment' post.id reply.id %}" class="action-button edit">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="{% url 'delete_comment' post.id reply.id %}" class="action-button delete">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% empty %}
+                <p>No hay comentarios todavía.</p>
+            {% endfor %}
+
+            {% if user.is_authenticated and not post.is_closed %}
+                <div class="comment-form-container">
+                    <h3>Deja un comentario</h3>
+                    <form method="post" class="comment-form">
+                        {% csrf_token %}
+                        {{ comment_form.content }}
+                        <button type="submit" class="send-comment-button">Enviar Comentario</button>
+                    </form>
+                </div>
+            {% elif post.is_closed %}
+                <p class="closed-message">Este tema está cerrado. No se pueden agregar nuevos comentarios.</p>
+            {% else %}
+                <p>Por favor, <a href="{% url 'login' %}">inicia sesión</a> o <a href="{% url 'register' %}">regístrate</a> para dejar un comentario.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

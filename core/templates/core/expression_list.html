@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<header class="hero">
+  <div class="container text-center">
+    <h1>Habla como un local.</h1>
+    <p class="hero-subtitle">Descubre el español real de Latinoamérica. Aprende la jerga, entiende la cultura y conéctate con el idioma del día a día.</p>
+    <a href="#dictionary-section" class="cta-button">¡Arranca, pues!</a>
+  </div>
+</header>
+
+<section class="value-section">
+  <div class="container">
+    <div class="grid-layout">
+      <div class="value-card">
+        <h3>Diccionario Interactivo</h3>
+        <p>Explora cientos de jergas con ejemplos claros, contexto y audio de pronunciación.</p>
+      </div>
+      <div class="value-card">
+        <h3>Ponte a Prueba</h3>
+        <p>Refuerza tu aprendizaje con quices divertidos para no olvidar lo que aprendes.</p>
+      </div>
+      <div class="value-card">
+        <h3>Contexto Real</h3>
+        <p>Aprende no solo el "qué", sino el "cómo" y "cuándo" usar cada expresión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="channels-section">
+  <div class="container">
+    <h2 class="section-title">¡Sígueme en mis otros canales!</h2>
+    <div class="grid-layout-four">
+      <div class="channel-card">
+        <i class="fa-brands fa-youtube channel-icon youtube"></i>
+        <h3>Canal de YouTube</h3>
+        <p>Videos divertidos y educativos para aprender español.</p>
+        <a href="https://www.youtube.com/@aprendeconjhons" target="_blank" rel="noopener noreferrer" class="card-button">Suscríbete</a>
+      </div>
+      <div class="channel-card">
+        <i class="fa-solid fa-podcast channel-icon podcast"></i>
+        <h3>Podcast</h3>
+        <p>Escucha y aprende español de una manera diferente.</p>
+        <a href="https://podcasts.apple.com/co/podcast/slangspot-latino/id1787990919" target="_blank" rel="noopener noreferrer" class="card-button">Escuchar</a>
+      </div>
+      <div class="channel-card">
+        <i class="fa-solid fa-graduation-cap channel-icon italki"></i>
+        <h3>Clases Personalizadas</h3>
+        <p>Toma clases uno a uno conmigo para mejorar tu fluidez.</p>
+        <a href="https://www.italki.com/es/i/reft/AEefACF/FBd6bc/spanish?hl=es&utm_medium=share_teacher&utm_source=copylink_share" target="_blank" rel="noopener noreferrer" class="card-button">Reservar</a>
+      </div>
+      <div class="channel-card">
+        <i class="fa-solid fa-hand-holding-dollar channel-icon paypal"></i>
+        <h3>Apoya el Proyecto</h3>
+        <p>Tu donación ayuda a mantener y crecer SlangSpot Latino.</p>
+        <a href="https://paypal.me/jhonsierramusica?country.x=CO&locale.x=es_XC" target="_blank" rel="noopener noreferrer" class="card-button">Donar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dictionary-section" class="dictionary-section">
+    <div class="container">
+        <h2 class="section-title">Diccionario de Jerga</h2>
+        {% for expression in expressions %}
+            <div class="expression-item">
+                <h3 class="expression-term">{{ expression.term }}</h3>
+                <p class="expression-meaning">{{ expression.meaning }}</p>
+            </div>
+        {% empty %}
+            <p>Aún no hay expresiones. ¡Vuelve pronto!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %} 
