@@ -26,6 +26,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media/
+staticfiles/
 
 # Entorno virtual
 venv/
@@ -33,25 +34,22 @@ ENV/
 env/
 .env
 
-# IDEs y editores
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 .DS_Store
+
+# Archivos de configuración local
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Archivos de sistema
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Archivos de base de datos
+*.sqlite3
+*.db
 
 # Archivos de caché
 .cache/
@@ -59,12 +57,13 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# Archivos de configuración local
-.env
-.env.local
-.env.*.local
+# Archivos de sistema
+.DS_Store
+Thumbs.db
 
-# Archivos de respaldo
-*.bak
-*.backup
-*~ 
+# Archivos de sistema
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db 

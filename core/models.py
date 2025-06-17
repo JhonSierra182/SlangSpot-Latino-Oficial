@@ -5,6 +5,7 @@ from .validators import validate_file_size, validate_image_extension, validate_a
 import uuid
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -43,17 +44,19 @@ def lesson_cover_path(instance, filename):
     return f'lesson_covers/{filename}'
 
 class Lesson(BaseModel):
-    DIFFICULTY_CHOICES = [
-        ('beginner', 'Principiante'),
-        ('intermediate', 'Intermedio'),
-        ('advanced', 'Avanzado'),
+    LEVEL_CHOICES = [
+        ('beginner', _('Principiante')),
+        ('intermediate', _('Intermedio')),
+        ('advanced', _('Avanzado')),
     ]
-    
+
     CATEGORY_CHOICES = [
-        ('slang', 'Slang'),
-        ('proverb', 'Proverbio'),
+        ('grammar', _('Gramática')),
+        ('vocabulary', _('Vocabulario')),
+        ('pronunciation', _('Pronunciación')),
+        ('conversation', _('Conversación')),
     ]
-    
+
     COUNTRY_CHOICES = [
         ('AR', 'Argentina'),
         ('BO', 'Bolivia'),
@@ -77,10 +80,11 @@ class Lesson(BaseModel):
         ('VE', 'Venezuela'),
     ]
     
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=2)
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    content = models.TextField(default='Contenido pendiente')
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='beginner')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='grammar')
     country = models.CharField(max_length=50, choices=COUNTRY_CHOICES)
     video_url = models.URLField(blank=True, null=True)
     cultural_notes = models.TextField(blank=True, null=True)
@@ -90,10 +94,11 @@ class Lesson(BaseModel):
         null=True,
         validators=[validate_file_size, validate_image_extension]
     )
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lessons', null=True, blank=True)
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def get_difficulty_display(self):
-        return dict(self.DIFFICULTY_CHOICES).get(self.difficulty, self.difficulty)
+        return dict(self.LEVEL_CHOICES).get(self.level, self.level)
     
     def get_category_display(self):
         return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
@@ -112,7 +117,7 @@ class Lesson(BaseModel):
         verbose_name_plural = 'Lecciones'
         indexes = [
             models.Index(fields=['title']),
-            models.Index(fields=['difficulty']),
+            models.Index(fields=['level']),
             models.Index(fields=['category']),
             models.Index(fields=['country']),
             models.Index(fields=['created_at']),
@@ -171,16 +176,20 @@ class Comment(BaseModel):
     def get_replies(self):
         return self.replies.filter(is_active=True).order_by('created_at')
 
-class UserProfile(BaseModel):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(blank=True)
+    preferred_language = models.CharField(max_length=50, default='es')
+    learning_goals = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     reputation = models.IntegerField(default=0)
     website = models.URLField(max_length=200, blank=True)
     location = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return f'Perfil de {self.user.username}'
+        return f"{self.user.username}'s profile"
 
 class Tag(BaseModel):
     name = models.CharField(max_length=50, unique=True)
@@ -208,3 +217,84 @@ class Category(BaseModel):
 
     def __str__(self):
         return self.name
+
+class SiteSettings(BaseModel):
+    """Configuraciones del sitio que el administrador puede cambiar"""
+    site_name = models.CharField(max_length=100, default="SlangSpot Latino")
+    video_explicativo_url = models.URLField(
+        max_length=500, 
+        default="https://www.youtube.com/@aprendeconjhons",
+        help_text="URL del video que explica qué es SlangSpot Latino"
+    )
+    video_explicativo_id = models.CharField(
+        max_length=20,
+        default="rsjRSa_B1P0",
+        blank=True,
+        help_text="ID del video de YouTube (ej: dQw4w9WgXcQ) para reproducir en la página"
+    )
+    video_explicativo_titulo = models.CharField(
+        max_length=200, 
+        default="¿Qué es SlangSpot Latino?",
+        help_text="Título del video explicativo"
+    )
+    video_explicativo_descripcion = models.TextField(
+        default="Descubre qué es SlangSpot Latino y cómo te ayudará a aprender español latino de forma auténtica",
+        help_text="Descripción del video explicativo"
+    )
+
+    class Meta:
+        verbose_name = 'Configuración del Sitio'
+        verbose_name_plural = 'Configuraciones del Sitio'
+
+    def __str__(self):
+        return f"Configuración de {self.site_name}"
+
+    @classmethod
+    def get_settings(cls):
+        """Obtiene la configuración del sitio, creando una si no existe"""
+        settings, created = cls.objects.get_or_create(
+            is_active=True,
+            defaults={
+                'site_name': 'SlangSpot Latino',
+                'video_explicativo_url': 'https://www.youtube.com/@aprendeconjhons',
+                'video_explicativo_id': 'rsjRSa_B1P0',
+                'video_explicativo_titulo': '¿Qué es SlangSpot Latino?',
+                'video_explicativo_descripcion': 'Descubre qué es SlangSpot Latino y cómo te ayudará a aprender español latino de forma auténtica'
+            }
+        )
+        return settings
+
+class Practice(models.Model):
+    DIFFICULTY_CHOICES = [
+        ('easy', _('Fácil')),
+        ('medium', _('Medio')),
+        ('hard', _('Difícil')),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES, default='medium')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+class Conversation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Conversation {self.id} - {self.user.username}"
+
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    content = models.TextField()
+    is_user = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message {self.id} - {'User' if self.is_user else 'AI'}"

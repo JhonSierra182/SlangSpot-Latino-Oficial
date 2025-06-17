@@ -1,0 +1,579 @@
+/* home.css - Diseño Minimalista y Moderno para SlangSpot Latino */
+
+:root {
+    --primary: #1a1a1a;
+    --secondary: #f8f9fa;
+    --accent: #007bff;
+    --text: #333333;
+    --text-light: #666666;
+    --background: #ffffff;
+    --background-alt: #f8f9fa;
+    --border: #e9ecef;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius: 12px;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+}
+
+/* Reset y Base con mayor especificidad */
+body.home-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    line-height: 1.6 !important;
+    color: var(--text) !important;
+    background: var(--background) !important;
+    font-size: 16px !important;
+}
+
+body.home-page .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 var(--spacing-md) !important;
+}
+
+/* Header Minimalista con mayor especificidad */
+body.home-page .main-header {
+    background: var(--background) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: var(--spacing-sm) 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+}
+
+body.home-page .header-content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+body.home-page .logo-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--spacing-sm) !important;
+}
+
+body.home-page .header-logo {
+    height: 40px !important;
+    width: auto !important;
+}
+
+body.home-page .brand-name {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+    letter-spacing: -0.025em !important;
+}
+
+body.home-page .main-navigation {
+    display: flex !important;
+    gap: var(--spacing-lg) !important;
+}
+
+body.home-page .nav-item {
+    text-decoration: none !important;
+    color: var(--text) !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    transition: var(--transition) !important;
+    padding: var(--spacing-xs) var(--spacing-sm) !important;
+    border-radius: var(--border-radius) !important;
+    position: relative !important;
+}
+
+body.home-page .nav-item:hover {
+    color: var(--accent) !important;
+    background: var(--background-alt) !important;
+}
+
+body.home-page .auth-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--spacing-sm) !important;
+}
+
+body.home-page .btn-login, 
+body.home-page .btn-register {
+    padding: 0.5rem 1.25rem !important;
+    border-radius: var(--border-radius) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    transition: var(--transition) !important;
+    border: 1px solid transparent !important;
+}
+
+body.home-page .btn-login {
+    color: var(--text) !important;
+    background: transparent !important;
+}
+
+body.home-page .btn-login:hover {
+    color: var(--accent) !important;
+    background: var(--background-alt) !important;
+}
+
+body.home-page .btn-register {
+    background: var(--accent) !important;
+    color: white !important;
+}
+
+body.home-page .btn-register:hover {
+    background: #0056b3 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow) !important;
+}
+
+/* Hero Section Minimalista con mayor especificidad */
+body.home-page .hero-banner {
+    background: var(--background) !important;
+    padding: var(--spacing-xl) 0 !important;
+    text-align: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+body.home-page .hero-banner::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(0, 123, 255, 0.02)) !important;
+    z-index: 0 !important;
+}
+
+body.home-page .banner-content {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+}
+
+body.home-page .banner-text h1 {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    margin-bottom: var(--spacing-md) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.025em !important;
+}
+
+body.home-page .banner-text p {
+    font-size: 1.25rem !important;
+    color: var(--text-light) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Features Section con mayor especificidad */
+body.home-page .features-section {
+    padding: var(--spacing-xl) 0 !important;
+    background: var(--background-alt) !important;
+}
+
+body.home-page .features-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: var(--spacing-lg) !important;
+    margin-top: var(--spacing-lg) !important;
+}
+
+body.home-page .feature-card {
+    background: var(--background) !important;
+    padding: var(--spacing-lg) !important;
+    border-radius: var(--border-radius) !important;
+    text-align: center !important;
+    box-shadow: var(--shadow) !important;
+    transition: var(--transition) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border) !important;
+}
+
+body.home-page .feature-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: var(--accent) !important;
+    transform: scaleX(0) !important;
+    transition: var(--transition) !important;
+}
+
+body.home-page .feature-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+body.home-page .feature-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+body.home-page .feature-icon {
+    width: 80px !important;
+    height: 80px !important;
+    background: var(--accent) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto var(--spacing-md) !important;
+    transition: var(--transition) !important;
+}
+
+body.home-page .feature-card:hover .feature-icon {
+    transform: scale(1.1) !important;
+}
+
+body.home-page .feature-icon i {
+    font-size: 2rem !important;
+    color: white !important;
+}
+
+body.home-page .feature-card h3 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+    margin-bottom: var(--spacing-sm) !important;
+}
+
+body.home-page .feature-card p {
+    color: var(--text-light) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+}
+
+/* Video Section con mayor especificidad */
+body.home-page .video-section {
+    padding: var(--spacing-xl) 0 !important;
+    background: var(--background) !important;
+    text-align: center !important;
+}
+
+body.home-page .video-section h2 {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    margin-bottom: var(--spacing-lg) !important;
+    text-align: center !important;
+}
+
+body.home-page .video-container {
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+}
+
+body.home-page .video-thumbnail {
+    position: relative !important;
+    display: block !important;
+    border-radius: var(--border-radius) !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow) !important;
+    transition: var(--transition) !important;
+    text-decoration: none !important;
+}
+
+body.home-page .video-thumbnail:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+body.home-page .video-thumbnail img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+body.home-page .play-overlay {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 80px !important;
+    height: 80px !important;
+    background: rgba(0, 123, 255, 0.9) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: var(--transition) !important;
+}
+
+body.home-page .play-overlay i {
+    font-size: 2rem !important;
+    color: white !important;
+    margin-left: 4px !important;
+}
+
+body.home-page .video-thumbnail:hover .play-overlay {
+    background: var(--accent) !important;
+    transform: translate(-50%, -50%) scale(1.1) !important;
+}
+
+/* Social Channels Section con mayor especificidad */
+body.home-page .social-channels {
+    padding: var(--spacing-xl) 0 !important;
+    background: var(--background-alt) !important;
+    text-align: center !important;
+}
+
+body.home-page .social-channels h2 {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    margin-bottom: var(--spacing-lg) !important;
+    text-align: center !important;
+}
+
+body.home-page .channels-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: var(--spacing-md) !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+}
+
+body.home-page .channel-card {
+    background: var(--background) !important;
+    padding: var(--spacing-lg) !important;
+    border-radius: var(--border-radius) !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    color: var(--text) !important;
+    box-shadow: var(--shadow) !important;
+    transition: var(--transition) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border) !important;
+}
+
+body.home-page .channel-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: var(--accent) !important;
+    transform: scaleX(0) !important;
+    transition: var(--transition) !important;
+}
+
+body.home-page .channel-card:hover::before {
+    transform: scaleX(1) !important;
+}
+
+body.home-page .channel-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
+body.home-page .channel-icon {
+    width: 60px !important;
+    height: 60px !important;
+    background: var(--accent) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto var(--spacing-md) !important;
+    transition: var(--transition) !important;
+}
+
+body.home-page .channel-card:hover .channel-icon {
+    transform: scale(1.1) !important;
+}
+
+body.home-page .channel-card.youtube .channel-icon {
+    background: #ff0000 !important;
+}
+
+body.home-page .channel-card.podcast .channel-icon {
+    background: #8c52ff !important;
+}
+
+body.home-page .channel-card.italki .channel-icon {
+    background: #ff6b35 !important;
+}
+
+body.home-page .channel-card.paypal .channel-icon {
+    background: #0070ba !important;
+}
+
+body.home-page .channel-icon i {
+    font-size: 1.5rem !important;
+    color: white !important;
+}
+
+body.home-page .channel-card h3 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: var(--primary) !important;
+    margin-bottom: var(--spacing-sm) !important;
+}
+
+body.home-page .channel-card p {
+    color: var(--text-light) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Footer con mayor especificidad */
+body.home-page .footer {
+    background: var(--primary) !important;
+    color: white !important;
+    padding: var(--spacing-md) 0 !important;
+    text-align: center !important;
+}
+
+body.home-page .footer p {
+    margin: 0 !important;
+    opacity: 0.8 !important;
+}
+
+/* Responsive con mayor especificidad */
+@media (max-width: 768px) {
+    body.home-page .header-content {
+        flex-direction: column !important;
+        gap: var(--spacing-sm) !important;
+    }
+
+    body.home-page .main-navigation {
+        order: 3 !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    body.home-page .auth-buttons {
+        order: 2 !important;
+    }
+
+    body.home-page .btn-login, 
+    body.home-page .btn-register {
+        padding: 0.4rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    body.home-page .banner-text h1 {
+        font-size: 2rem !important;
+    }
+
+    body.home-page .banner-text p {
+        font-size: 1.1rem !important;
+    }
+
+    body.home-page .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+
+    body.home-page .channels-container {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md) !important;
+    }
+
+    body.home-page .feature-card {
+        padding: var(--spacing-md) !important;
+    }
+
+    body.home-page .channel-card {
+        padding: var(--spacing-md) !important;
+    }
+
+    body.home-page .video-section h2,
+    body.home-page .social-channels h2 {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    body.home-page .container {
+        padding: 0 var(--spacing-sm) !important;
+    }
+
+    body.home-page .banner-text h1 {
+        font-size: 1.75rem !important;
+    }
+
+    body.home-page .banner-text p {
+        font-size: 1rem !important;
+    }
+
+    body.home-page .feature-icon {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    body.home-page .feature-icon i {
+        font-size: 1.5rem !important;
+    }
+
+    body.home-page .play-overlay {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    body.home-page .play-overlay i {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* Animaciones con mayor especificidad */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.home-page .feature-card,
+body.home-page .channel-card {
+    animation: fadeInUp 0.6s ease-out forwards !important;
+}
+
+body.home-page .feature-card:nth-child(2) {
+    animation-delay: 0.2s !important;
+}
+
+body.home-page .feature-card:nth-child(3) {
+    animation-delay: 0.4s !important;
+}
+
+/* Accesibilidad */
+body.home-page .nav-item:focus,
+body.home-page .btn-login:focus,
+body.home-page .btn-register:focus,
+body.home-page .feature-card:focus,
+body.home-page .channel-card:focus {
+    outline: 2px solid var(--accent) !important;
+    outline-offset: 2px !important;
+}
+
+/* Screen reader only */
+body.home-page .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+} 

@@ -4,96 +4,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}SlangSpot{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>{% block title %}SlangSpot Latino{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'core/images/slangspot-logo.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="{% static 'core/css/styles.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="nav-logo" href="{% url 'home' %}">
-                <img src="{% static 'core/img/logo.png' %}" alt="SlangSpot Logo" class="nav-logo-img">
-                SlangSpot
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">
-                            <i class="fas fa-home"></i> Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'lessons' %}">
-                            <i class="fas fa-book"></i> Lecciones
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'forum' %}">
-                            <i class="fas fa-comments"></i> Foro
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'search' %}">
-                            <i class="fas fa-search"></i> Buscar
-                        </a>
-                    </li>
-                </ul>
-                <div class="nav-buttons">
+    <header>
+        <nav>
+            <div class="nav-container">
+                <a href="{% url 'core:home' %}" class="logo">
+                    <img src="{% static 'core/images/slangspot-logo.png' %}" alt="SlangSpot Latino Logo" class="logo-image">
+                    <span class="logo-text">SlangSpot Latino</span>
+                </a>
+                <div class="nav-links">
+                    <a href="{% url 'core:lesson_list' %}">Lecciones</a>
+                    <a href="{% url 'core:forum_index' %}">Foro</a>
+                </div>
+                <div class="auth-buttons">
                     {% if user.is_authenticated %}
-                        <div class="dropdown">
-                            <button class="btn btn-link nav-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                                <i class="fas fa-user"></i> {{ user.username }}
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{% url 'profile' %}">Mi Perfil</a></li>
-                                {% if user.is_staff %}
-                                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
-                                {% endif %}
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Cerrar Sesión</a></li>
-                            </ul>
-                        </div>
+                        <span class="user-greeting">Hola, {{ user.username }}</span>
+                        <a href="{% url 'account_logout' %}" class="auth-btn logout">Salir</a>
                     {% else %}
-                        <a href="{% url 'account_login' %}" class="nav-button-primary">Iniciar Sesión</a>
-                        <a href="{% url 'register' %}" class="nav-button-secondary">Registrarse</a>
+                        <a href="{% url 'account_login' %}" class="auth-btn login">Entrar</a>
+                        <a href="{% url 'account_signup' %}" class="auth-btn signup">Registrarse</a>
                     {% endif %}
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <main>
-        {% if messages %}
-            <div class="container mt-3">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>© 2024 SlangSpot. Todos los derechos reservados.</p>
-            <div class="footer-links">
-                <a href="{% url 'terms' %}">Términos y Condiciones</a>
-                <a href="{% url 'privacy' %}">Política de Privacidad</a>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2024 SlangSpot Latino</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    {% block extra_js %}{% endblock %}
+    <style>
+        /* Variables CSS para consistencia */
+        :root {
+            --primary-color: #2563eb;      /* Azul más claro y moderno */
+            --secondary-color: #3b82f6;    /* Azul medio más suave */
+            --accent-color: #FCD116;     /* Amarillo de la bandera */
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray-dark: #202124;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: transparent;
+            color: var(--primary-color);
+            padding: 1.5rem 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.6rem;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.3px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: all 0.3s ease;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+
+        .logo:hover {
+            color: var(--secondary-color);
+            transform: scale(1.02);
+            text-shadow: 0 4px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .logo:hover .logo-image {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-greeting {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .auth-btn {
+            color: #1e40af !important;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #1e40af;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+
+        .auth-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .auth-btn:hover {
+            color: #1e40af !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;
+        }
+
+        .auth-btn.signup:hover {
+            background: white;
+            border-color: #1e40af;
+            color: #1e40af !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            min-height: 70vh;
+        }
+
+        footer {
+            background: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .logo-image {
+                width: 35px;
+                height: 35px;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 1rem;
+            }
+
+            .auth-buttons {
+                gap: 10px;
+            }
+
+            .auth-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-image {
+                width: 30px;
+                height: 30px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        .logo, .nav-links a, .auth-btn, .user-greeting {
+            color: #1e40af !important;
+        }
+
+        .logo:hover, .nav-links a:hover, .auth-btn:hover {
+            color: #1e40af !important;
+        }
+
+        .auth-btn.signup {
+            background: var(--accent-color);
+            color: #1e40af !important;
+            border-color: var(--accent-color);
+        }
+
+        .auth-btn.signup:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #1e40af !important;
+        }
+    </style>
 </body>
 </html> 

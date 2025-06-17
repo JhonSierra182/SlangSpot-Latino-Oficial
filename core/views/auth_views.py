@@ -4,9 +4,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from ..forms import CustomUserCreationForm
+from ..models import SiteSettings
 
 def home(request):
-    return render(request, 'core/home.html')
+    # Obtener las configuraciones del sitio
+    site_settings = SiteSettings.get_settings()
+    return render(request, 'core/home.html', {
+        'site_settings': site_settings
+    })
 
 def registro(request):
     if request.method == 'POST':

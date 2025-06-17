@@ -6,7 +6,7 @@
     <div class="lessons-header">
         <h1>Lecciones de Slang</h1>
         {% if user.is_staff %}
-        <a href="{% url 'create_lesson' %}" class="btn btn-primary">
+        <a href="{% url 'core:create_lesson' %}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Nueva Lección
         </a>
         {% endif %}
@@ -82,7 +82,7 @@
 
             <div class="filters-actions">
                 <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-                <a href="{% url 'lessons_index' %}" class="btn btn-secondary">Limpiar Filtros</a>
+                <a href="{% url 'core:lesson_list' %}" class="btn btn-secondary">Limpiar Filtros</a>
             </div>
         </form>
     </div>
@@ -99,19 +99,19 @@
             </div>
             <div class="lesson-content">
                 <h2>{{ lesson.title }}</h2>
-                <p class="lesson-description">{{ lesson.description|truncatewords:30 }}</p>
+                <p class="lesson-description">{{ lesson.content|truncatewords:30 }}</p>
                 <div class="lesson-meta">
-                    <span class="country"><i class="fas fa-globe"></i> {{ lesson.country }}</span>
-                    <span class="difficulty"><i class="fas fa-signal"></i> {{ lesson.difficulty }}</span>
+                    <span class="country"><i class="fas fa-globe"></i> {{ lesson.get_country_display }}</span>
+                    <span class="level"><i class="fas fa-signal"></i> {{ lesson.get_level_display }}</span>
                 </div>
                 <div class="lesson-actions">
-                    <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-primary">Ver Lección</a>
+                    <a href="{% url 'core:lesson_detail' lesson.id %}" class="btn btn-primary">Ver Lección</a>
                     {% if user.is_staff %}
                     <div class="admin-actions">
-                        <a href="{% url 'edit_lesson' lesson.id %}" class="btn btn-warning btn-sm">
+                        <a href="{% url 'core:edit_lesson' lesson.id %}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="{% url 'delete_lesson' lesson.id %}" class="btn btn-danger btn-sm">
+                        <a href="{% url 'core:delete_lesson' lesson.id %}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
                         </a>
                     </div>
@@ -123,7 +123,7 @@
         <div class="no-lessons">
             <p>No hay lecciones disponibles.</p>
             {% if user.is_staff %}
-            <a href="{% url 'create_lesson' %}" class="btn btn-primary">Crear Primera Lección</a>
+            <a href="{% url 'core:create_lesson' %}" class="btn btn-primary">Crear Primera Lección</a>
             {% endif %}
         </div>
         {% endfor %}

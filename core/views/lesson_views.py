@@ -28,11 +28,11 @@ class LessonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'core/create_lesson.html'
-    success_url = reverse_lazy('lessons_index')
+    success_url = reverse_lazy('core:lesson_list')
     success_message = '¡Lección creada exitosamente!'
     
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 class LessonUpdateView(LoginRequiredMixin, OwnerRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -47,7 +47,7 @@ class LessonUpdateView(LoginRequiredMixin, OwnerRequiredMixin, SuccessMessageMix
 class LessonDeleteView(LoginRequiredMixin, OwnerRequiredMixin, SoftDeleteMixin, DeleteView):
     model = Lesson
     template_name = 'core/delete_lesson.html'
-    success_url = reverse_lazy('lessons_index')
+    success_url = reverse_lazy('core:lesson_list')
 
 class ExpressionCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Expression

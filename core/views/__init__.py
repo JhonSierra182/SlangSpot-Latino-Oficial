@@ -16,4 +16,30 @@ from .lesson_views import (
     LessonCreateView, LessonUpdateView,
     LessonDeleteView, ExpressionCreateView,
     ExpressionUpdateView, ExpressionDeleteView
-) 
+)
+
+from .chat_views import chat, get_chat_history, send_message, get_ai_response
+from .profile_views import ProfileView, ProfileUpdateView
+from .practice_views import (
+    PracticeListView, PracticeCreateView, PracticeDetailView,
+    PracticeUpdateView, PracticeDeleteView
+)
+
+__all__ = [
+    'chat',
+    'get_chat_history',
+    'send_message',
+    'get_ai_response',
+    'LessonListView',
+    'LessonCreateView',
+    'LessonDetailView',
+    'LessonUpdateView',
+    'LessonDeleteView',
+    'ProfileView',
+    'ProfileUpdateView',
+    'PracticeListView',
+    'PracticeCreateView',
+    'PracticeDetailView',
+    'PracticeUpdateView',
+    'PracticeDeleteView',
+] 

@@ -8,10 +8,10 @@ def get_user_permissions(user):
     return user.user_permissions.all() | Permission.objects.filter(group__user=user)
 
 def can_edit_lesson(user, lesson):
-    return user.is_superuser or lesson.author == user
+    return user.is_superuser or lesson.user == user
 
 def can_delete_lesson(user, lesson):
-    return user.is_superuser or lesson.author == user
+    return user.is_superuser or lesson.user == user
 
 def can_edit_expression(user, expression):
     return user.is_superuser or expression.lesson.author == user

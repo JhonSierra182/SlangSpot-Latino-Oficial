@@ -12,7 +12,7 @@
             {% csrf_token %}
             <div class="form-actions">
                 <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
-                <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary">Cancelar</a>
+                <a href="{% url 'core:lesson_detail' lesson.id %}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

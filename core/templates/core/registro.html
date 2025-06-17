@@ -1,34 +1,319 @@
 {% extends 'core/base.html' %}
 {% load socialaccount %}
+{% load static %}
+
+{% block title %}Registro - SlangSpot Latino{% endblock %}
+
 {% block content %}
-<div class="auth-page">
-    <div class="auth-card">
-        <h2 class="auth-title">Crea tu cuenta</h2>
-        <p class="auth-subtitle">Únete a la comunidad de SlangSpot Latino.</p>
-
-        <div class="social-login-buttons">
-            {% load socialaccount %}
-            <a href="{% provider_login_url 'google' %}" class="social-button google">
-                <i class="fa-brands fa-google"></i> Continuar con Google
-            </a>
-        </div>
-
-        <div class="social-login-divider">
-            <span class="divider-line"></span><span class="divider-text">o regístrate con tu email</span><span class="divider-line"></span>
-        </div>
-        
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+<div class="auth-hero-section">
+    <div class="auth-container">
+        <div class="auth-content">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="{% static 'core/images/slangspot-logo.png' %}" alt="SlangSpot Latino" class="auth-logo-image">
                 </div>
-            {% endfor %}
-            <button type="submit" class="auth-button">Crear cuenta</button>
-        </form>
-        <p class="auth-redirect">¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+                <h1 class="auth-title">Únete a SlangSpot</h1>
+                <p class="auth-subtitle">Crea tu cuenta y comienza a aprender español latino</p>
+            </div>
+
+            <div class="auth-form-container">
+                <div class="social-auth">
+                    <a href="{% provider_login_url 'google' %}" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Continuar con Google</span>
+                    </a>
+                </div>
+
+                <div class="auth-divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-text">o regístrate con tu email</span>
+                    <span class="divider-line"></span>
+                </div>
+
+                <form method="post" class="auth-form" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="auth-error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {{ form.non_field_errors|join:", " }}
+                        </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            <div class="input-wrapper">
+                                {% if field.name == 'username' %}
+                                    <i class="fas fa-user input-icon"></i>
+                                {% elif field.name == 'email' %}
+                                    <i class="fas fa-envelope input-icon"></i>
+                                {% elif 'password' in field.name %}
+                                    <i class="fas fa-lock input-icon"></i>
+                                {% else %}
+                                    <i class="fas fa-edit input-icon"></i>
+                                {% endif %}
+                                {{ field }}
+                            </div>
+                            {% for error in field.errors %}
+                                <div class="field-error">
+                                    <i class="fas fa-times-circle"></i>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="auth-submit-btn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Crear Cuenta</span>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p class="auth-redirect">
+                        ¿Ya tienes una cuenta? 
+                        <a href="{% url 'account_login' %}" class="auth-link">Inicia sesión</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #3b82f6;
+    --accent-color: #FCD116;
+    --white: #ffffff;
+    --gray-light: #f8f9fa;
+    --text-dark: #2c3e50;
+    --text-light: #6c757d;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+.auth-hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-content {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-header {
+    text-align: center;
+    padding: 40px 30px 30px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+}
+
+.auth-logo-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.auth-form-container {
+    padding: 40px 30px;
+}
+
+.social-auth {
+    margin-bottom: 30px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 14px 24px;
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius);
+    background: var(--white);
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-btn:hover {
+    border-color: var(--primary-color);
+    background: #f8f9ff;
+    color: var(--primary-color);
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e9ecef;
+}
+
+.divider-text {
+    padding: 0 16px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    z-index: 1;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.auth-error {
+    background: #fee;
+    color: #c53030;
+    padding: 12px 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.field-error {
+    color: #c53030;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.auth-submit-btn:hover {
+    background: #e6bc15;
+    transform: translateY(-2px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.auth-redirect {
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+</style>
 {% endblock %} 

@@ -1,17 +1,46 @@
 from django.contrib import admin
-from .models import Lesson, Expression, Comment, ForumPost
+from .models import Lesson, Expression, Comment, ForumPost, SiteSettings, Practice, UserProfile
 
+@admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'country', 'difficulty', 'created_at')
-    search_fields = ('title', 'country')
-    list_filter = ('category', 'difficulty', 'country')
+    list_display = ('id', 'title', 'level', 'category', 'created_at')
+    list_filter = ('level', 'category', 'created_at')
+    search_fields = ('title', 'content')
+
+@admin.register(Practice)
+class PracticeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'difficulty', 'created_at')
+    list_filter = ('difficulty', 'created_at')
+    search_fields = ('title', 'content')
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'preferred_language', 'created_at')
+    list_filter = ('preferred_language', 'created_at')
+    search_fields = ('user__username', 'bio', 'learning_goals')
 
 class ExpressionAdmin(admin.ModelAdmin):
     list_display = ('text', 'lesson', 'meaning', 'created_at')
     search_fields = ('text', 'meaning', 'lesson__title')
     list_filter = ('lesson',)
 
-admin.site.register(Lesson, LessonAdmin)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ('site_name', 'video_explicativo_titulo', 'updated_at')
+    fieldsets = (
+        ('Información General', {
+            'fields': ('site_name',)
+        }),
+        ('Video Explicativo', {
+            'fields': ('video_explicativo_url', 'video_explicativo_id', 'video_explicativo_titulo', 'video_explicativo_descripcion'),
+            'description': 'Configura el video que explica qué es SlangSpot Latino. El ID del video permite reproducirlo directamente en la página.'
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        # Solo permitir una configuración
+        return not SiteSettings.objects.exists()
+
 admin.site.register(Expression, ExpressionAdmin)
 admin.site.register(Comment)
 admin.site.register(ForumPost)
+admin.site.register(SiteSettings, SiteSettingsAdmin)

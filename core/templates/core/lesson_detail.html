@@ -21,10 +21,10 @@
                 </div>
                 {% if user.is_staff %}
                 <div class="admin-actions">
-                    <a href="{% url 'edit_lesson' lesson.id %}" class="btn btn-warning">
+                    <a href="{% url 'core:edit_lesson' lesson.id %}" class="btn btn-warning">
                         <i class="fas fa-edit"></i> Editar
                     </a>
-                    <a href="{% url 'delete_lesson' lesson.id %}" class="btn btn-danger">
+                    <a href="{% url 'core:delete_lesson' lesson.id %}" class="btn btn-danger">
                         <i class="fas fa-trash"></i> Eliminar
                     </a>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="section-header">
                     <h2>Expresiones</h2>
                     {% if user.is_staff %}
-                    <a href="{% url 'create_expression' lesson.id %}" class="btn btn-danger">
+                    <a href="{% url 'core:create_expression' lesson.id %}" class="btn btn-danger">
                         <i class="fas fa-plus"></i> Añadir Expresión
                     </a>
                     {% endif %}
@@ -87,10 +87,10 @@
                             <h3 class="expression-text">{{ expression.text }}</h3>
                             {% if user.is_staff %}
                             <div class="expression-actions">
-                                <a href="{% url 'edit_expression' lesson.id expression.id %}" class="btn btn-warning btn-sm">
+                                <a href="{% url 'core:edit_expression' lesson.id expression.id %}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{% url 'delete_expression' lesson.id expression.id %}" class="btn btn-danger btn-sm">
+                                <a href="{% url 'core:delete_expression' lesson.id expression.id %}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
@@ -122,7 +122,7 @@
                     <div class="no-expressions">
                         <p>No hay expresiones disponibles para esta lección.</p>
                         {% if user.is_staff %}
-                        <a href="{% url 'create_expression' lesson.id %}" class="btn btn-danger">
+                        <a href="{% url 'core:create_expression' lesson.id %}" class="btn btn-danger">
                             <i class="fas fa-plus"></i> Añadir Primera Expresión
                         </a>
                         {% endif %}
