@@ -4,10 +4,12 @@ from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 from ..models import ForumPost, Comment
 from ..forms import ForumPostForm, CommentForm
 from .mixins import OwnerRequiredMixin, SuccessMessageMixin, SoftDeleteMixin, SearchMixin
-from ..utils import notify_new_comment, notify_mention, notify_reply
+from ..utils import notify_new_comment, notify_mention, notify_reply, notify_post_like
 
 class ForumPostListView(LoginRequiredMixin, SearchMixin, ListView):
     model = ForumPost
@@ -76,7 +78,7 @@ def post_detail_view(request, post_id):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = post
-            comment.user = request.user
+            comment.author = request.user
             comment.save()
             
             notify_new_comment(post, comment, request.user)

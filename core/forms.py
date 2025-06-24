@@ -64,9 +64,25 @@ class LessonForm(forms.ModelForm):
             'level': forms.Select(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'country': forms.Select(attrs={'class': 'form-control'}),
-            'video_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'video_url': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ejemplo: https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+            }),
             'cultural_notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'cover_image': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'title': 'Título de la Lección',
+            'content': 'Contenido',
+            'level': 'Nivel de Dificultad',
+            'category': 'Categoría',
+            'country': 'País',
+            'video_url': 'URL del Video de YouTube',
+            'cultural_notes': 'Notas Culturales',
+            'cover_image': 'Imagen de Portada',
+        }
+        help_texts = {
+            'video_url': '📹 Copia y pega la URL completa del video de YouTube. Funciona con cualquier formato: youtube.com/watch, youtu.be, etc.',
         }
 
 class ExpressionForm(forms.ModelForm):

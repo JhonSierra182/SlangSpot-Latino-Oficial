@@ -22,9 +22,9 @@
                 {% if lessons %}
                     <div class="list-group">
                         {% for lesson in lessons %}
-                            <a href="{% url 'lesson_detail' lesson.id %}" class="list-group-item list-group-item-action">
+                            <a href="{% url 'core:lesson_detail' lesson.id %}" class="list-group-item list-group-item-action">
                                 <h5 class="mb-1">{{ lesson.title }}</h5>
-                                <p class="mb-1">{{ lesson.description|truncatewords:30 }}</p>
+                                <p class="mb-1">{{ lesson.content|truncatewords:30 }}</p>
                                 <small class="text-muted">
                                     Dificultad: {{ lesson.get_difficulty_display }} | 
                                     País: {{ lesson.get_country_display }}
@@ -42,7 +42,7 @@
                 {% if posts %}
                     <div class="list-group">
                         {% for post in posts %}
-                            <a href="{% url 'post_detail' post.id %}" class="list-group-item list-group-item-action">
+                            <a href="{% url 'core:post_detail' post.id %}" class="list-group-item list-group-item-action">
                                 <h5 class="mb-1">{{ post.title }}</h5>
                                 <p class="mb-1">{{ post.content|truncatewords:30 }}</p>
                                 <small class="text-muted">

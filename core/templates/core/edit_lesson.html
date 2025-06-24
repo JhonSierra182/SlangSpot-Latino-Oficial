@@ -15,48 +15,77 @@
             <div class="form-group">
                 <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
                 {{ form.title }}
+                {% if form.title.help_text %}
+                <small class="form-text text-muted">{{ form.title.help_text }}</small>
+                {% endif %}
                 {% if form.title.errors %}
                 <div class="error-message">{{ form.title.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-                {{ form.description }}
-                {% if form.description.errors %}
-                <div class="error-message">{{ form.description.errors }}</div>
+                <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                {{ form.content }}
+                {% if form.content.help_text %}
+                <small class="form-text text-muted">{{ form.content.help_text }}</small>
+                {% endif %}
+                {% if form.content.errors %}
+                <div class="error-message">{{ form.content.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
                 {{ form.country }}
+                {% if form.country.help_text %}
+                <small class="form-text text-muted">{{ form.country.help_text }}</small>
+                {% endif %}
                 {% if form.country.errors %}
                 <div class="error-message">{{ form.country.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.difficulty.id_for_label }}">{{ form.difficulty.label }}</label>
-                {{ form.difficulty }}
-                {% if form.difficulty.errors %}
-                <div class="error-message">{{ form.difficulty.errors }}</div>
+                <label for="{{ form.level.id_for_label }}">{{ form.level.label }}</label>
+                {{ form.level }}
+                {% if form.level.help_text %}
+                <small class="form-text text-muted">{{ form.level.help_text }}</small>
+                {% endif %}
+                {% if form.level.errors %}
+                <div class="error-message">{{ form.level.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group">
                 <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
                 {{ form.category }}
+                {% if form.category.help_text %}
+                <small class="form-text text-muted">{{ form.category.help_text }}</small>
+                {% endif %}
                 {% if form.category.errors %}
                 <div class="error-message">{{ form.category.errors }}</div>
                 {% endif %}
             </div>
 
             <div class="form-group">
-                <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
-                {{ form.youtube_url }}
-                {% if form.youtube_url.errors %}
-                <div class="error-message">{{ form.youtube_url.errors }}</div>
+                <label for="{{ form.video_url.id_for_label }}">{{ form.video_url.label }}</label>
+                {{ form.video_url }}
+                {% if form.video_url.help_text %}
+                <small class="form-text text-muted">{{ form.video_url.help_text }}</small>
+                {% endif %}
+                {% if form.video_url.errors %}
+                <div class="error-message">{{ form.video_url.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.cultural_notes.id_for_label }}">{{ form.cultural_notes.label }}</label>
+                {{ form.cultural_notes }}
+                {% if form.cultural_notes.help_text %}
+                <small class="form-text text-muted">{{ form.cultural_notes.help_text }}</small>
+                {% endif %}
+                {% if form.cultural_notes.errors %}
+                <div class="error-message">{{ form.cultural_notes.errors }}</div>
                 {% endif %}
             </div>
 
@@ -71,6 +100,9 @@
                     </div>
                     {% endif %}
                 </div>
+                {% if form.cover_image.help_text %}
+                <small class="form-text text-muted">{{ form.cover_image.help_text }}</small>
+                {% endif %}
                 {% if form.cover_image.errors %}
                 <div class="error-message">{{ form.cover_image.errors }}</div>
                 {% endif %}
@@ -79,7 +111,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary">Cancelar</a>
+            <a href="{% url 'core:lesson_detail' lesson.id %}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
@@ -169,6 +201,15 @@
     color: #dc3545;
     font-size: 0.875rem;
     margin-top: 0.25rem;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.text-muted {
+    color: #6c757d !important;
 }
 
 .form-actions {

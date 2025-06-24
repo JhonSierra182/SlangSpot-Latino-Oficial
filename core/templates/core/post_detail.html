@@ -117,7 +117,7 @@
             {% elif post.is_closed %}
                 <p class="closed-message">Este tema está cerrado. No se pueden agregar nuevos comentarios.</p>
             {% else %}
-                <p>Por favor, <a href="{% url 'login' %}">inicia sesión</a> o <a href="{% url 'register' %}">regístrate</a> para dejar un comentario.</p>
+                <p>Por favor, <a href="{% url 'core:login' %}">inicia sesión</a> o <a href="{% url 'core:register' %}">regístrate</a> para dejar un comentario.</p>
             {% endif %}
         </div>
     </div>

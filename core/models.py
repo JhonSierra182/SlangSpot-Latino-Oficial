@@ -80,7 +80,7 @@ class Lesson(BaseModel):
         ('VE', 'Venezuela'),
     ]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField(default='Contenido pendiente')
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='beginner')
@@ -110,6 +110,33 @@ class Lesson(BaseModel):
         if self.cover_image and hasattr(self.cover_image, 'url'):
             return self.cover_image.url
         return '/static/core/images/default-cover.jpg'
+    
+    def get_video_embed_url(self):
+        """Convierte URLs de YouTube al formato de embed correcto"""
+        if not self.video_url:
+            return None
+        
+        # Si ya es una URL de embed, la devuelve tal como está
+        if 'youtube.com/embed' in self.video_url:
+            return self.video_url
+        
+        # Extrae el ID del video de diferentes formatos de URL de YouTube
+        import re
+        
+        # Patrones para diferentes formatos de URL de YouTube
+        patterns = [
+            r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)',
+            r'youtube\.com\/watch\?.*v=([^&\n?#]+)',
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, self.video_url)
+            if match:
+                video_id = match.group(1)
+                return f'https://www.youtube.com/embed/{video_id}'
+        
+        # Si no coincide con ningún patrón, devuelve la URL original
+        return self.video_url
     
     class Meta:
         ordering = ['-created_at']

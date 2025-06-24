@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-72c*2aoaa&=te&948fti4y6q0i4q_@oc3i*#y4(o8fn5tw0z4d'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-72c*2aoaa&=te&948fti4y6q0i4q_@oc3i*#y4(o8fn5tw0z4d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
 
 
 # Application definition
@@ -154,7 +155,7 @@ FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo, en producción configurar específicamente
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)  # Solo para desarrollo
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
@@ -163,7 +164,7 @@ LOGOUT_REDIRECT_URL = 'home'
 # Configuración de sesiones
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
-SESSION_COOKIE_SECURE = False  # Cambiar a True en producción con HTTPS
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)  # Cambiar a True en producción con HTTPS
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 
@@ -184,25 +185,30 @@ ACCOUNT_LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'  # Cambiar a 'mandatory' en producción
+ACCOUNT_EMAIL_VERIFICATION = config('ACCOUNT_EMAIL_VERIFICATION', default='none')  # Cambiar a 'mandatory' en producción
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
 ACCOUNT_SESSION_REMEMBER = True
 
-# Configuración de correo electrónico para desarrollo
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Nueva configuración de rate limits (reemplaza las configuraciones deprecadas)
+ACCOUNT_RATE_LIMITS = {
+    'login_failed': '5/5m',  # 5 intentos fallidos por 5 minutos
+    'signup': '5/1h',        # 5 registros por hora
+    'password_reset': '3/1h', # 3 resets de contraseña por hora
+}
+
+# Configuración de correo electrónico
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 
 # Configuración de seguridad
-SECURE_SSL_REDIRECT = False  # Cambiar a True en producción
-CSRF_COOKIE_SECURE = False  # Cambiar a True en producción
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)  # Cambiar a True en producción
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)  # Cambiar a True en producción
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='http://127.0.0.1:8000,http://localhost:8000', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Configuración de caché
 CACHES = {
@@ -211,25 +217,13 @@ CACHES = {
     }
 }
 
-# Configuración de middleware
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-]
-
 # Configuración de Channels
 ASGI_APPLICATION = 'slangspot.asgi.application'
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',  # Para desarrollo, usar Redis en producción
     },
 }
+
+# Configuración de ElevenLabs (para generación de audio)
+ELEVENLABS_API_KEY = config('ELEVENLABS_API_KEY', default='')

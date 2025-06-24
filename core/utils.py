@@ -5,12 +5,29 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from django.utils import timezone
 from django.db.models import Q, Count
+from django.contrib.auth.models import User
 from .models import ForumPost, Comment, UserProfile
+
+# Importaciones condicionales para ElevenLabs
+try:
+    from elevenlabs import generate, save, set_api_key
+    ELEVENLABS_AVAILABLE = True
+except ImportError:
+    ELEVENLABS_AVAILABLE = False
+    print("Warning: ElevenLabs no está disponible. La generación de audio no funcionará.")
 
 def generate_audio(text, filename):
     """
     Genera un archivo de audio usando ElevenLabs API
     """
+    if not ELEVENLABS_AVAILABLE:
+        print("Error: ElevenLabs no está disponible")
+        return False
+    
+    if not settings.ELEVENLABS_API_KEY:
+        print("Error: ELEVENLABS_API_KEY no está configurada")
+        return False
+    
     try:
         # Configurar la API key
         set_api_key(settings.ELEVENLABS_API_KEY)
@@ -31,39 +48,35 @@ def generate_audio(text, filename):
         return True
     except Exception as e:
         print(f"Error generando audio: {str(e)}")
-        return False 
+        return False
 
 def create_notification(user, notification_type, message, related_post=None, related_comment=None, related_user=None):
     """
     Crea una notificación y la envía en tiempo real al usuario
+    TODO: Implementar cuando se cree el modelo Notification
     """
-    notification = Notification.objects.create(
-        user=user,
-        notification_type=notification_type,
-        message=message,
-        related_post=related_post,
-        related_comment=related_comment,
-        related_user=related_user
-    )
-
-    # Enviar notificación en tiempo real
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        f"user_{user.id}_notifications",
-        {
-            "type": "send_notification",
-            "message": message,
-            "notification_id": notification.id,
-            "notification_type": notification_type,
-            "data": {
-                "post_id": related_post.id if related_post else None,
-                "comment_id": related_comment.id if related_comment else None,
-                "user_id": related_user.id if related_user else None,
-            }
-        }
-    )
-
-    return notification
+    # TODO: Implementar cuando se cree el modelo Notification
+    print(f"Notificación para {user.username}: {message}")
+    
+    # Enviar notificación en tiempo real (comentado hasta implementar Notification)
+    # channel_layer = get_channel_layer()
+    # async_to_sync(channel_layer.group_send)(
+    #     f"user_{user.id}_notifications",
+    #     {
+    #         "type": "send_notification",
+    #         "message": message,
+    #         "notification_id": notification.id,
+    #         "notification_type": notification_type,
+    #         "data": {
+    #             "post_id": related_post.id if related_post else None,
+    #             "comment_id": related_comment.id if related_comment else None,
+    #             "user_id": related_user.id if related_user else None,
+    #         }
+    #     }
+    # )
+    
+    # return notification
+    return None
 
 def notify_post_like(post, user):
     """
@@ -83,10 +96,10 @@ def notify_comment_like(comment, user):
     """
     Notifica al autor de un comentario cuando recibe un like
     """
-    if comment.user != user:  # No notificar si el usuario se da like a sí mismo
+    if comment.author != user:  # No notificar si el usuario se da like a sí mismo
         message = f"{user.username} dio me gusta a tu comentario"
         create_notification(
-            user=comment.user,
+            user=comment.author,
             notification_type='comment_like',
             message=message,
             related_comment=comment,
@@ -112,10 +125,10 @@ def notify_reply(comment, reply, user):
     """
     Notifica al autor de un comentario cuando recibe una respuesta
     """
-    if comment.user != user:  # No notificar si el usuario responde a su propio comentario
+    if comment.author != user:  # No notificar si el usuario responde a su propio comentario
         message = f"{user.username} respondió a tu comentario"
         create_notification(
-            user=comment.user,
+            user=comment.author,
             notification_type='reply',
             message=message,
             related_comment=reply,

@@ -9,7 +9,7 @@
             <div class="hero-content">
                 <h1>{{ lesson.title }}</h1>
                 <div class="lesson-meta">
-                    <span class="badge difficulty-{{ lesson.difficulty }}">
+                    <span class="badge difficulty-{{ lesson.level }}">
                         {{ lesson.get_difficulty_display }}
                     </span>
                     <span class="badge category-{{ lesson.category }}">
@@ -40,7 +40,7 @@
             <section class="lesson-section">
                 <h2>Descripción</h2>
                 <div class="description-content">
-                    {{ lesson.description|linebreaks }}
+                    {{ lesson.content|linebreaks }}
                 </div>
             </section>
 
@@ -60,7 +60,7 @@
                 <h2>Video de la Lección</h2>
                 <div class="video-container">
                     <iframe 
-                        src="{{ lesson.video_url }}" 
+                        src="{{ lesson.get_video_embed_url }}" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
@@ -87,10 +87,10 @@
                             <h3 class="expression-text">{{ expression.text }}</h3>
                             {% if user.is_staff %}
                             <div class="expression-actions">
-                                <a href="{% url 'core:edit_expression' lesson.id expression.id %}" class="btn btn-warning btn-sm">
+                                <a href="{% url 'core:edit_expression' expression.id %}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{% url 'core:delete_expression' lesson.id expression.id %}" class="btn btn-danger btn-sm">
+                                <a href="{% url 'core:delete_expression' expression.id %}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>

@@ -97,15 +97,15 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{% url 'core:profile' %}">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Cerrar Sesión</a></li>
+                            <li><a class="dropdown-item" href="{% url 'core:logout' %}">Cerrar Sesión</a></li>
                         </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">Iniciar Sesión</a>
+                        <a class="nav-link" href="{% url 'core:login' %}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Registrarse</a>
+                        <a class="nav-link" href="{% url 'core:register' %}">Registrarse</a>
                     </li>
                     {% endif %}
                 </ul>
