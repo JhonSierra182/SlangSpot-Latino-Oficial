@@ -7,7 +7,15 @@ class OwnerRequiredMixin:
     
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
-        if not obj.user == request.user and not request.user.is_superuser:
+        # Verificar diferentes campos de autor según el modelo
+        if hasattr(obj, 'author'):
+            owner = obj.author
+        elif hasattr(obj, 'user'):
+            owner = obj.user
+        else:
+            owner = None
+            
+        if not owner or (owner != request.user and not request.user.is_superuser):
             messages.error(request, 'No tienes permiso para realizar esta acción.')
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

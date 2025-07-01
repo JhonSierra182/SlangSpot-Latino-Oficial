@@ -154,6 +154,17 @@ class Lesson(BaseModel):
         return self.title
 
 class ForumPost(BaseModel):
+    CATEGORY_CHOICES = [
+        ('general', _('General')),
+        ('grammar', _('Gramática')),
+        ('vocabulary', _('Vocabulario')),
+        ('pronunciation', _('Pronunciación')),
+        ('culture', _('Cultura')),
+        ('questions', _('Preguntas')),
+        ('resources', _('Recursos')),
+        ('off-topic', _('Off Topic')),
+    ]
+    
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -162,7 +173,7 @@ class ForumPost(BaseModel):
     is_pinned = models.BooleanField(default=False)
     is_closed = models.BooleanField(default=False)
     tags = models.ManyToManyField('Tag', blank=True)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='general')
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
 
     def save(self, *args, **kwargs):
@@ -171,7 +182,7 @@ class ForumPost(BaseModel):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'slug': self.slug})
+        return reverse('core:post_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.title
@@ -184,6 +195,14 @@ class ForumPost(BaseModel):
 
     def can_moderate(self, user):
         return user.is_superuser or user.is_staff
+
+    def get_category_display(self):
+        return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Publicación del Foro'
+        verbose_name_plural = 'Publicaciones del Foro'
 
 class Comment(BaseModel):
     post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name='comments', null=True, blank=True)
@@ -324,4 +343,53 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message {self.id} - {'User' if self.is_user else 'AI'}"
+        return f"Mensaje en {self.conversation.title} - {self.created_at}"
+
+class BlogPost(BaseModel):
+    CATEGORY_CHOICES = [
+        ('slang', _('Slang y Expresiones')),
+        ('culture', _('Cultura')),
+        ('tips', _('Tips de Aprendizaje')),
+        ('stories', _('Historias y Anécdotas')),
+        ('interviews', _('Entrevistas')),
+    ]
+
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+    content = models.TextField()
+    excerpt = models.TextField(max_length=300, blank=True, help_text="Resumen corto del artículo")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='slang')
+    featured_image = models.ImageField(
+        upload_to='blog_images/',
+        blank=True,
+        null=True,
+        validators=[validate_file_size, validate_image_extension]
+    )
+    is_published = models.BooleanField(default=False)
+    views = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='liked_blog_posts', blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('core:blog_detail', kwargs={'slug': self.slug})
+
+    def get_featured_image_url(self):
+        if self.featured_image and hasattr(self.featured_image, 'url'):
+            return self.featured_image.url
+        return '/static/core/images/default-cover.jpg'
+
+    def get_category_display(self):
+        return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Artículo del Blog'
+        verbose_name_plural = 'Artículos del Blog'
+
+    def __str__(self):
+        return self.title

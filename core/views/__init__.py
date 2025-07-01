@@ -25,6 +25,11 @@ from .practice_views import (
     PracticeUpdateView, PracticeDeleteView
 )
 
+from .blog_views import (
+    BlogListView, BlogDetailView, BlogCreateView,
+    BlogUpdateView, BlogDeleteView, blog_like
+)
+
 __all__ = [
     'chat',
     'get_chat_history',
@@ -42,4 +47,10 @@ __all__ = [
     'PracticeDetailView',
     'PracticeUpdateView',
     'PracticeDeleteView',
+    'BlogListView',
+    'BlogDetailView',
+    'BlogCreateView',
+    'BlogUpdateView',
+    'BlogDeleteView',
+    'blog_like',
 ] 

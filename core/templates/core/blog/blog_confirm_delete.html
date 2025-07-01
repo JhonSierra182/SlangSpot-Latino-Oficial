@@ -1,0 +1,99 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Artículo - Blog SlangSpot{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">¿Eliminar Artículo?</h1>
+            <p class="text-gray-600">Esta acción no se puede deshacer</p>
+        </div>
+
+        <!-- Información del artículo -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ object.title }}</h2>
+            
+            <div class="space-y-3 text-sm text-gray-600">
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    Autor: {{ object.author.username }}
+                </div>
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    Creado: {{ object.created_at|date:"d M Y" }}
+                </div>
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    Vistas: {{ object.views }}
+                </div>
+                <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    Likes: {{ object.likes.count }}
+                </div>
+            </div>
+
+            {% if object.excerpt %}
+            <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-700">{{ object.excerpt }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Advertencia -->
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-red-800">Advertencia</h3>
+                    <div class="mt-2 text-sm text-red-700">
+                        <p>Al eliminar este artículo:</p>
+                        <ul class="list-disc list-inside mt-1 space-y-1">
+                            <li>Se eliminará permanentemente del blog</li>
+                            <li>Se perderán todos los likes y comentarios</li>
+                            <li>La imagen destacada también se eliminará</li>
+                            <li>Esta acción no se puede deshacer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de confirmación -->
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            
+            <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                <a href="{% url 'core:blog_detail' object.slug %}" 
+                   class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancelar
+                </a>
+                <button type="submit" 
+                        class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
+                    Sí, Eliminar Artículo
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

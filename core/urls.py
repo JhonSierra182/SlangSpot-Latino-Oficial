@@ -26,7 +26,11 @@ from .views import (
     # Practice views
     PracticeListView, PracticeCreateView,
     PracticeDetailView, PracticeUpdateView,
-    PracticeDeleteView
+    PracticeDeleteView,
+    
+    # Blog views
+    BlogListView, BlogDetailView, BlogCreateView,
+    BlogUpdateView, BlogDeleteView, blog_like
 )
 
 app_name = 'core'
@@ -43,10 +47,10 @@ urlpatterns = [
     
     # Forum URLs
     path('forum/', ForumPostListView.as_view(), name='forum_index'),
-    path('forum/post/<int:pk>/', ForumPostDetailView.as_view(), name='post_detail'),
+    path('forum/post/<int:post_id>/', post_detail_view, name='post_detail'),
     path('forum/post/create/', ForumPostCreateView.as_view(), name='create_post'),
-    path('forum/post/<int:pk>/edit/', ForumPostUpdateView.as_view(), name='edit_post'),
-    path('forum/post/<int:pk>/delete/', ForumPostDeleteView.as_view(), name='delete_post'),
+    path('forum/post/<int:post_id>/edit/', ForumPostUpdateView.as_view(), name='edit_post'),
+    path('forum/post/<int:post_id>/delete/', ForumPostDeleteView.as_view(), name='delete_post'),
     path('forum/post/<int:post_id>/like/', like_post, name='like_post'),
     
     # Lesson URLs
@@ -75,4 +79,12 @@ urlpatterns = [
     path('practice/<int:pk>/', PracticeDetailView.as_view(), name='practice_detail'),
     path('practice/<int:pk>/edit/', PracticeUpdateView.as_view(), name='practice_edit'),
     path('practice/<int:pk>/delete/', PracticeDeleteView.as_view(), name='practice_delete'),
+    
+    # Blog URLs
+    path('blog/', BlogListView.as_view(), name='blog_list'),
+    path('blog/create/', BlogCreateView.as_view(), name='blog_create'),
+    path('blog/<int:pk>/edit/', BlogUpdateView.as_view(), name='blog_edit'),
+    path('blog/<int:pk>/delete/', BlogDeleteView.as_view(), name='blog_delete'),
+    path('blog/<slug:slug>/like/', blog_like, name='blog_like'),
+    path('blog/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
 ] 

@@ -24,24 +24,23 @@ class CustomUserCreationForm(UserCreationForm):
 class ForumPostForm(forms.ModelForm):
     class Meta:
         model = ForumPost
-        fields = ['title', 'content', 'category', 'tags']
+        fields = ['title', 'content', 'category']
         labels = {
             'title': 'Título',
             'content': 'Contenido',
             'category': 'Categoría',
-            'tags': 'Etiquetas (separadas por comas)'
         }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título de la publicación'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Contenido de la publicación', 'rows': 5}),
             'category': forms.Select(attrs={'class': 'form-control'}),
-            'tags': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Etiquetas separadas por comas'})
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].label = "Título"
-        self.fields['content'].label = "Contenido" 
+        self.fields['content'].label = "Contenido"
+        self.fields['category'].label = "Categoría"
 
 class CommentForm(forms.ModelForm):
     class Meta:

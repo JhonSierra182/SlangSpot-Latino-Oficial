@@ -1,0 +1,685 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if form.instance.pk %}Editar Artículo{% else %}Crear Artículo{% endif %} - SlangSpot
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 50px 0;
+        color: white;
+    }
+    
+    .hero-content {
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+        opacity: 0.95;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .form-section {
+        padding: 50px 0;
+        background: #f8fafc;
+    }
+    
+    .form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+    
+    .form-header {
+        background: #f7fafc;
+        padding: 24px 32px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .form-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 6px;
+    }
+    
+    .form-subtitle {
+        color: #718096;
+        font-size: 0.9rem;
+    }
+    
+    .form-body {
+        padding: 32px;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+    }
+    
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+    }
+    
+    .form-label.required::after {
+        content: ' *';
+        color: #e53e3e;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafbfc;
+    }
+    
+    .form-input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+        font-family: inherit;
+        line-height: 1.5;
+    }
+    
+    .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        padding-right: 40px;
+    }
+    
+    .image-upload-container {
+        border: 2px dashed #cbd5e0;
+        border-radius: 8px;
+        padding: 32px 16px;
+        text-align: center;
+        background: #fafbfc;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .image-upload-container:hover {
+        border-color: #667eea;
+        background: #f0f4ff;
+    }
+    
+    .image-upload-container.dragover {
+        border-color: #667eea;
+        background: #f0f4ff;
+    }
+    
+    .upload-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 12px;
+        background: #667eea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .upload-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 6px;
+    }
+    
+    .upload-hint {
+        color: #718096;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+    
+    .upload-btn {
+        background: #667eea;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .upload-btn:hover {
+        background: #5a67d8;
+    }
+    
+    .image-preview {
+        margin-top: 16px;
+        text-align: center;
+    }
+    
+    .preview-image {
+        max-width: 100%;
+        max-height: 150px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .checkbox-container:hover {
+        background: #f0f4ff;
+        border-color: #cbd5e0;
+    }
+    
+    .custom-checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #cbd5e0;
+        border-radius: 4px;
+        background: white;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+    
+    .custom-checkbox.checked {
+        background: #667eea;
+        border-color: #667eea;
+    }
+    
+    .custom-checkbox.checked::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+    }
+    
+    .checkbox-label {
+        font-weight: 500;
+        color: #2d3748;
+        cursor: pointer;
+        flex: 1;
+    }
+    
+    .checkbox-description {
+        font-size: 0.8rem;
+        color: #718096;
+        margin-top: 3px;
+    }
+    
+    .help-text {
+        font-size: 0.8rem;
+        color: #718096;
+        margin-top: 4px;
+        line-height: 1.4;
+    }
+    
+    .tips-section {
+        background: #f0f4ff;
+        border: 1px solid #bee3f8;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+    
+    .tips-title {
+        font-weight: 600;
+        color: #2b6cb0;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+    }
+    
+    .tips-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .tips-list li {
+        color: #4a5568;
+        margin-bottom: 6px;
+        padding-left: 16px;
+        position: relative;
+        font-size: 0.85rem;
+    }
+    
+    .tips-list li::before {
+        content: '💡';
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding-top: 24px;
+        border-top: 1px solid #e2e8f0;
+        margin-top: 24px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-secondary {
+        background: #f7fafc;
+        color: #4a5568;
+        border: 1px solid #e2e8f0;
+    }
+    
+    .btn-secondary:hover {
+        background: #edf2f7;
+        border-color: #cbd5e0;
+        color: #4a5568;
+        text-decoration: none;
+    }
+    
+    .btn-primary {
+        background: #667eea;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background: #5a67d8;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .error-message {
+        color: #e53e3e;
+        font-size: 0.8rem;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .field-error {
+        border-color: #e53e3e !important;
+        background: #fef5f5 !important;
+    }
+    
+    .field-error:focus {
+        box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1) !important;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 1.6rem;
+        }
+        
+        .form-body {
+            padding: 20px;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container mx-auto px-4">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                {% if form.instance.pk %}Editar Artículo{% else %}Crear Artículo{% endif %}
+            </h1>
+            <p class="hero-subtitle">
+                {% if form.instance.pk %}
+                Actualiza tu artículo y comparte tus conocimientos con la comunidad
+                {% else %}
+                Comparte tus conocimientos sobre slang latino con la comunidad
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Form Section -->
+<section class="form-section">
+    <div class="container mx-auto px-4">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">
+                    {% if form.instance.pk %}Editar Artículo{% else %}Nuevo Artículo{% endif %}
+                </h2>
+                <p class="form-subtitle">
+                    Completa los campos requeridos para publicar tu artículo
+                </p>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data" class="form-body">
+                {% csrf_token %}
+                
+                <!-- Tips Section -->
+                <div class="tips-section">
+                    <div class="tips-title">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Tips para un buen artículo
+                    </div>
+                    <ul class="tips-list">
+                        <li>Escribe un título atractivo y descriptivo</li>
+                        <li>Incluye ejemplos prácticos y contextos de uso</li>
+                        <li>Usa un lenguaje claro y accesible</li>
+                        <li>Añade una imagen representativa</li>
+                        <li>Revisa la ortografía antes de publicar</li>
+                    </ul>
+                </div>
+                
+                <!-- Title Field -->
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class="form-label required">
+                        Título del Artículo
+                    </label>
+                    <input type="text" 
+                           name="{{ form.title.name }}" 
+                           id="{{ form.title.id_for_label }}"
+                           value="{{ form.title.value|default:'' }}"
+                           class="form-input {% if form.title.errors %}field-error{% endif %}"
+                           placeholder="Ej: 10 Expresiones Colombianas que Debes Conocer"
+                           maxlength="200">
+                    {% if form.title.errors %}
+                    <div class="error-message">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ form.title.errors.0 }}
+                    </div>
+                    {% endif %}
+                    <div class="help-text">
+                        Escribe un título claro y atractivo que resuma el contenido de tu artículo
+                    </div>
+                </div>
+                
+                <!-- Category Field -->
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}" class="form-label required">
+                        Categoría
+                    </label>
+                    <select name="{{ form.category.name }}" 
+                            id="{{ form.category.id_for_label }}"
+                            class="form-input form-select {% if form.category.errors %}field-error{% endif %}">
+                        <option value="">Selecciona una categoría</option>
+                        {% for value, label in form.category.field.choices %}
+                        {% if value %}
+                        <option value="{{ value }}" {% if form.category.value == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    {% if form.category.errors %}
+                    <div class="error-message">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ form.category.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Featured Image Field -->
+                <div class="form-group">
+                    <label class="form-label">Imagen Destacada</label>
+                    <div class="image-upload-container" onclick="document.getElementById('{{ form.featured_image.id_for_label }}').click()">
+                        <div class="upload-icon">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="upload-text">Subir Imagen</div>
+                        <div class="upload-hint">
+                            Arrastra una imagen aquí o haz clic para seleccionar
+                        </div>
+                        <button type="button" class="upload-btn">Seleccionar Archivo</button>
+                    </div>
+                    
+                    <input type="file" 
+                           name="{{ form.featured_image.name }}" 
+                           id="{{ form.featured_image.id_for_label }}"
+                           accept="image/*"
+                           style="display: none;"
+                           onchange="previewImage(this)">
+                    
+                    {% if form.featured_image.errors %}
+                    <div class="error-message">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ form.featured_image.errors.0 }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if form.instance.featured_image %}
+                    <div class="image-preview">
+                        <img src="{{ form.instance.featured_image.url }}" 
+                             alt="Imagen actual" 
+                             class="preview-image">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="help-text">
+                        Recomendamos imágenes de 1200x630 píxeles para mejor visualización
+                    </div>
+                </div>
+                
+                <!-- Excerpt Field -->
+                <div class="form-group">
+                    <label for="{{ form.excerpt.id_for_label }}" class="form-label">
+                        Resumen
+                    </label>
+                    <textarea name="{{ form.excerpt.name }}" 
+                              id="{{ form.excerpt.id_for_label }}"
+                              class="form-input form-textarea {% if form.excerpt.errors %}field-error{% endif %}"
+                              placeholder="Escribe un breve resumen de tu artículo (opcional)"
+                              rows="3">{{ form.excerpt.value|default:'' }}</textarea>
+                    {% if form.excerpt.errors %}
+                    <div class="error-message">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ form.excerpt.errors.0 }}
+                    </div>
+                    {% endif %}
+                    <div class="help-text">
+                        Un resumen breve que aparecerá en la vista previa del artículo
+                    </div>
+                </div>
+                
+                <!-- Content Field -->
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}" class="form-label required">
+                        Contenido del Artículo
+                    </label>
+                    <textarea name="{{ form.content.name }}" 
+                              id="{{ form.content.id_for_label }}"
+                              class="form-input form-textarea {% if form.content.errors %}field-error{% endif %}"
+                              placeholder="Escribe aquí el contenido completo de tu artículo..."
+                              rows="10">{{ form.content.value|default:'' }}</textarea>
+                    {% if form.content.errors %}
+                    <div class="error-message">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ form.content.errors.0 }}
+                    </div>
+                    {% endif %}
+                    <div class="help-text">
+                        Puedes usar formato básico de texto. Sé creativo y comparte tus conocimientos de manera clara.
+                    </div>
+                </div>
+                
+                <!-- Is Published Field -->
+                <div class="form-group">
+                    <div class="checkbox-container" onclick="toggleCheckbox()">
+                        <div class="custom-checkbox" id="custom-checkbox"></div>
+                        <div>
+                            <div class="checkbox-label">Publicar inmediatamente</div>
+                            <div class="checkbox-description">
+                                Si no está marcado, el artículo se guardará como borrador
+                            </div>
+                        </div>
+                    </div>
+                    <input type="checkbox" 
+                           name="{{ form.is_published.name }}" 
+                           id="{{ form.is_published.id_for_label }}"
+                           {% if form.is_published.value %}checked{% endif %}
+                           style="display: none;">
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="{% url 'core:blog_list' %}" class="btn btn-secondary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        {% if form.instance.pk %}Actualizar{% else %}Publicar{% endif %} Artículo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+// Image upload functionality
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const container = input.parentElement;
+            let preview = container.querySelector('.image-preview');
+            
+            if (!preview) {
+                preview = document.createElement('div');
+                preview.className = 'image-preview';
+                container.appendChild(preview);
+            }
+            
+            preview.innerHTML = `<img src="${e.target.result}" alt="Vista previa" class="preview-image">`;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Drag and drop functionality
+const uploadContainer = document.querySelector('.image-upload-container');
+const fileInput = document.getElementById('{{ form.featured_image.id_for_label }}');
+
+uploadContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadContainer.classList.add('dragover');
+});
+
+uploadContainer.addEventListener('dragleave', () => {
+    uploadContainer.classList.remove('dragover');
+});
+
+uploadContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadContainer.classList.remove('dragover');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        fileInput.files = files;
+        previewImage(fileInput);
+    }
+});
+
+// Checkbox functionality
+function toggleCheckbox() {
+    const checkbox = document.getElementById('{{ form.is_published.id_for_label }}');
+    const customCheckbox = document.getElementById('custom-checkbox');
+    
+    checkbox.checked = !checkbox.checked;
+    customCheckbox.classList.toggle('checked', checkbox.checked);
+}
+
+// Initialize checkbox state
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('{{ form.is_published.id_for_label }}');
+    const customCheckbox = document.getElementById('custom-checkbox');
+    
+    if (checkbox.checked) {
+        customCheckbox.classList.add('checked');
+    }
+});
+</script>
+{% endblock %} 

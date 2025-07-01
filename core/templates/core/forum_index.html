@@ -1,83 +1,400 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Foro - SlangSpot Latino{% endblock %}
+
 {% block content %}
-<div class="container">
+<div class="forum-container">
     <div class="forum-header">
-        <h1 class="section-title">Foro de SlangSpot Latino</h1>
-        {% if user.is_authenticated %}
-            <a href="{% url 'create_post' %}" class="auth-button" style="max-width: 200px; margin: 0 auto;">Añadir Nueva Publicación</a>
-        {% endif %}
+        <div class="forum-header-content">
+            <h1 class="forum-title">
+                <i class="fas fa-comments"></i>
+                Foro de la Comunidad
+            </h1>
+            <p class="forum-subtitle">Comparte, pregunta y aprende con otros estudiantes de español latino</p>
+        </div>
+        <div class="forum-actions">
+            <a href="{% url 'core:create_post' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Nueva Publicación
+            </a>
+        </div>
     </div>
 
     <div class="forum-filters">
-        <form method="get" class="search-form">
-            <div class="search-box">
-                <input type="text" name="q" value="{{ search_query }}" placeholder="Buscar en el foro...">
-                <button type="submit" class="search-button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <div class="category-filter">
-                <select name="category" onchange="this.form.submit()">
-                    <option value="">Todas las categorías</option>
-                    {% for value, label in categories.items %}
-                        <option value="{{ value }}" {% if value == current_category %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </form>
+        <div class="search-box">
+            <form method="get" class="search-form">
+                <div class="input-group">
+                    <input type="text" name="q" value="{{ search_query }}" class="form-control" placeholder="Buscar publicaciones...">
+                    <button type="submit" class="btn btn-outline-secondary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="category-filters">
+            <a href="{% url 'core:forum_index' %}" class="category-filter {% if not current_category %}active{% endif %}">
+                Todas
+            </a>
+            {% for category_value, category_name in categories %}
+                <a href="{% url 'core:forum_index' %}?category={{ category_value }}" 
+                   class="category-filter {% if current_category == category_value %}active{% endif %}">
+                    {{ category_name }}
+                </a>
+            {% endfor %}
+        </div>
     </div>
 
     <div class="forum-posts">
-        {% for post in posts %}
-            <div class="forum-post {% if post.is_pinned %}pinned{% endif %}">
-                {% if post.is_pinned %}
-                    <div class="pin-badge"><i class="fas fa-thumbtack"></i> Fijado</div>
-                {% endif %}
-                <div class="post-header">
-                    <h2 class="post-title">
-                        <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-                        {% if post.is_closed %}
-                            <span class="closed-badge">Cerrado</span>
-                        {% endif %}
-                    </h2>
-                    <div class="post-meta">
-                        <span class="post-author">Por {{ post.author.username }}</span>
-                        <span class="post-date">{{ post.created_at|date:"d/m/Y H:i" }}</span>
-                        <span class="post-category">{{ post.get_category_display }}</span>
-                    </div>
-                </div>
-                <div class="post-content">
-                    {{ post.content|truncatewords:50|linebreaks }}
-                </div>
-                <div class="post-footer">
-                    <div class="post-stats">
-                        <span><i class="fas fa-comments"></i> {{ post.comments.count }} comentarios</span>
-                        <span><i class="fas fa-heart"></i> {{ post.likes.count }} me gusta</span>
-                    </div>
-                    {% if user.is_authenticated %}
-                        <div class="post-actions">
-                            {% if post.can_edit %}
-                                <a href="{% url 'edit_post' post.id %}" class="action-button edit">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
-                            {% endif %}
-                            {% if post.can_delete %}
-                                <a href="{% url 'delete_post' post.id %}" class="action-button delete">
-                                    <i class="fas fa-trash"></i> Eliminar
-                                </a>
-                            {% endif %}
-                            {% if post.can_moderate %}
-                                <a href="{% url 'moderate_post' post.id %}" class="action-button moderate">
-                                    <i class="fas fa-shield-alt"></i> Moderar
-                                </a>
-                            {% endif %}
+        {% if posts %}
+            {% for post in posts %}
+                <div class="forum-post {% if post.is_pinned %}pinned{% endif %}">
+                    {% if post.is_pinned %}
+                        <div class="pin-badge">
+                            <i class="fas fa-thumbtack"></i> Fijado
                         </div>
                     {% endif %}
+                    
+                    <div class="post-header">
+                        <h2 class="post-title">
+                            <a href="{% url 'core:post_detail' post.pk %}">{{ post.title }}</a>
+                            {% if post.is_closed %}
+                                <span class="closed-badge">Cerrado</span>
+                            {% endif %}
+                        </h2>
+                        <div class="post-meta">
+                            <span class="post-author">
+                                <i class="fas fa-user"></i>
+                                {{ post.author.username }}
+                            </span>
+                            <span class="post-date">
+                                <i class="fas fa-clock"></i>
+                                {{ post.created_at|date:"d/m/Y H:i" }}
+                            </span>
+                            <span class="post-category">
+                                <i class="fas fa-tag"></i>
+                                {{ post.get_category_display }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-content">
+                        {{ post.content|truncatewords:50|linebreaks }}
+                    </div>
+                    
+                    <div class="post-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-eye"></i>
+                            <span>{{ post.views }} vistas</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-comments"></i>
+                            <span>{{ post.comments.count }} comentarios</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-heart"></i>
+                            <span>{{ post.likes.count }} likes</span>
+                        </div>
+                    </div>
                 </div>
+            {% endfor %}
+            
+            {% if is_paginated %}
+                <div class="pagination-container">
+                    <nav aria-label="Navegación de páginas">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+                            
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>No hay publicaciones</h3>
+                <p>{% if search_query %}No se encontraron publicaciones para "{{ search_query }}"{% else %}Aún no hay publicaciones en el foro{% endif %}</p>
+                {% if not search_query %}
+                    <a href="{% url 'core:create_post' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Crear la primera publicación
+                    </a>
+                {% endif %}
             </div>
-        {% empty %}
-            <p class="no-posts">No hay publicaciones aún. ¡Sé el primero en publicar!</p>
-        {% endfor %}
+        {% endif %}
     </div>
 </div>
+
+<style>
+.forum-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.forum-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    color: white;
+}
+
+.forum-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.forum-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 10px 0 0 0;
+}
+
+.forum-actions .btn {
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.forum-filters {
+    margin-bottom: 30px;
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-form .input-group {
+    max-width: 400px;
+}
+
+.category-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.category-filter {
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #6c757d;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.category-filter:hover {
+    background: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+}
+
+.category-filter.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.forum-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.forum-post {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.forum-post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.forum-post.pinned {
+    border-left: 4px solid #FCD116;
+}
+
+.pin-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #FCD116;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.post-header {
+    margin-bottom: 15px;
+}
+
+.post-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.post-title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.post-title a:hover {
+    color: #667eea;
+}
+
+.closed-badge {
+    background: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    margin-left: 10px;
+}
+
+.post-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-content {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.post-stats {
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.pagination-container {
+    margin-top: 30px;
+}
+
+.pagination .page-link {
+    color: #667eea;
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+@media (max-width: 768px) {
+    .forum-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .forum-title {
+        font-size: 2rem;
+    }
+    
+    .post-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .post-stats {
+        flex-wrap: wrap;
+    }
+}
+</style>
 {% endblock %} 

@@ -1,19 +1,239 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Publicación - Foro{% endblock %}
+
 {% block content %}
-<div class="delete-post-section">
-    <div class="container">
-        <h1 class="section-title">Eliminar Publicación</h1>
-        <div class="confirmation-box">
-            <p>¿Estás seguro de que deseas eliminar la publicación "{{ post.title }}"?</p>
-            <p class="warning">Esta acción no se puede deshacer.</p>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                    <a href="{% url 'post_detail' post.id %}" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
+<div class="delete-confirmation-container">
+    <div class="delete-confirmation-card">
+        <div class="delete-header">
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1 class="delete-title">Confirmar Eliminación</h1>
+            <p class="delete-subtitle">¿Estás seguro de que quieres eliminar esta publicación?</p>
         </div>
+
+        <div class="post-preview">
+            <h3 class="post-title">{{ object.title }}</h3>
+            <div class="post-meta">
+                <span class="post-author">
+                    <i class="fas fa-user"></i>
+                    {{ object.author.username }}
+                </span>
+                <span class="post-date">
+                    <i class="fas fa-clock"></i>
+                    {{ object.created_at|date:"d/m/Y H:i" }}
+                </span>
+                <span class="post-comments">
+                    <i class="fas fa-comments"></i>
+                    {{ object.comments.count }} comentarios
+                </span>
+            </div>
+            <div class="post-content">
+                {{ object.content|truncatewords:30|linebreaks }}
+            </div>
+        </div>
+
+        <div class="delete-warning">
+            <div class="warning-message">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Esta acción no se puede deshacer.</strong>
+                    <p>La publicación y todos sus comentarios serán eliminados permanentemente.</p>
+                </div>
+            </div>
+        </div>
+
+        <form method="post" class="delete-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <a href="{% url 'core:post_detail' object.pk %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Eliminar Permanentemente
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+<style>
+.delete-confirmation-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.delete-confirmation-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.delete-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.delete-icon {
+    font-size: 4rem;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.delete-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.delete-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+.post-preview {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef;
+}
+
+.post-preview .post-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.post-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.post-content {
+    color: #495057;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.delete-warning {
+    background: linear-gradient(135deg, #fed7d7, #feb2b2);
+    border: 1px solid #feb2b2;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.warning-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #c53030;
+}
+
+.warning-message i {
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.warning-message strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.warning-message p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.delete-form {
+    margin-top: 30px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .delete-confirmation-container {
+        padding: 10px;
+    }
+    
+    .delete-confirmation-card {
+        padding: 25px;
+    }
+    
+    .delete-title {
+        font-size: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .post-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
 {% endblock %} 

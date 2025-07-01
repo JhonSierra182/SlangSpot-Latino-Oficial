@@ -15,7 +15,9 @@ class ForumPostListView(LoginRequiredMixin, SearchMixin, ListView):
     model = ForumPost
     template_name = 'core/forum_index.html'
     context_object_name = 'posts'
-    search_fields = ['title', 'content', 'tags']
+    search_fields = ['title', 'content']
+    paginate_by = 10
+    login_url = '/core/login/'
     
     def get_queryset(self):
         queryset = super().get_queryset().filter(is_active=True)
@@ -26,7 +28,7 @@ class ForumPostListView(LoginRequiredMixin, SearchMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = dict(ForumPost._meta.get_field('category').choices)
+        context['categories'] = ForumPost.CATEGORY_CHOICES
         context['current_category'] = self.request.GET.get('category', '')
         context['search_query'] = self.request.GET.get('q', '')
         return context
@@ -35,6 +37,7 @@ class ForumPostDetailView(LoginRequiredMixin, DetailView):
     model = ForumPost
     template_name = 'core/post_detail.html'
     context_object_name = 'post'
+    login_url = '/core/login/'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,8 +49,9 @@ class ForumPostCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = ForumPost
     form_class = ForumPostForm
     template_name = 'core/create_post.html'
-    success_url = reverse_lazy('forum_index')
+    success_url = reverse_lazy('core:forum_index')
     success_message = '¡Publicación creada exitosamente!'
+    login_url = '/core/login/'
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -58,14 +62,16 @@ class ForumPostUpdateView(LoginRequiredMixin, OwnerRequiredMixin, SuccessMessage
     form_class = ForumPostForm
     template_name = 'core/edit_post.html'
     success_message = 'Publicación actualizada exitosamente.'
+    login_url = '/core/login/'
     
     def get_success_url(self):
-        return reverse_lazy('post_detail', kwargs={'post_id': self.object.id})
+        return reverse_lazy('core:post_detail', kwargs={'post_id': self.object.pk})
 
 class ForumPostDeleteView(LoginRequiredMixin, OwnerRequiredMixin, SoftDeleteMixin, DeleteView):
     model = ForumPost
     template_name = 'core/delete_post.html'
-    success_url = reverse_lazy('forum_index')
+    success_url = reverse_lazy('core:forum_index')
+    login_url = '/core/login/'
 
 @login_required
 def post_detail_view(request, post_id):
@@ -81,7 +87,9 @@ def post_detail_view(request, post_id):
             comment.author = request.user
             comment.save()
             
-            notify_new_comment(post, comment, request.user)
+            # Notificar al autor del post sobre el nuevo comentario
+            if hasattr(post, 'author') and post.author != request.user:
+                notify_new_comment(post, comment, request.user)
             
             # Procesar menciones
             content = comment.content
@@ -95,7 +103,7 @@ def post_detail_view(request, post_id):
                         pass
             
             messages.success(request, 'Comentario publicado exitosamente.')
-            return redirect('post_detail', post_id=post.id)
+            return redirect('core:post_detail', post_id=post.id)
     
     return render(request, 'core/post_detail.html', {
         'post': post,
@@ -112,7 +120,9 @@ def like_post(request, post_id):
     else:
         post.likes.add(request.user)
         liked = True
-        notify_post_like(post, request.user)
+        # Notificar al autor del post sobre el like
+        if hasattr(post, 'author') and post.author != request.user:
+            notify_post_like(post, request.user)
     
     return JsonResponse({
         'likes_count': post.likes.count(),
