@@ -1,6 +1,14 @@
 # Changelog - SlangSpot Latino
 
-## [1.1.0] - 2024-01-XX
+## [1.2.0] - 2024-01-XX
+
+### 🧹 Limpieza de Código
+- **ELIMINADO**: Dependencias no utilizadas (channels, elevenlabs, djangorestframework, corsheaders)
+- **ELIMINADO**: Archivos de debug (debug_lesson_context.py, debug_view_simulation.py, debug_run.log)
+- **ELIMINADO**: Templates no utilizados (lessons_index 2.html, add_expression.html, moderate_post.html, etc.)
+- **COMENTADO**: Configuraciones de WebSockets y ElevenLabs en settings.py
+- **COMENTADO**: Funciones de generación de audio y notificaciones en tiempo real
+- **OPTIMIZADO**: requirements.txt con solo dependencias necesarias
 
 ### 🔒 Seguridad
 - **CRÍTICO**: Movida SECRET_KEY a variables de entorno usando python-decouple
@@ -21,12 +29,13 @@
 - Agregado contexto de `lesson` a vistas de expresión (ExpressionUpdateView, ExpressionDeleteView)
 
 ### 📦 Dependencias
-- Agregadas dependencias faltantes: channels, elevenlabs, Pillow, python-decouple
-- Actualizado requirements.txt con versiones específicas
+- **ELIMINADAS**: channels, elevenlabs, djangorestframework, corsheaders, psycopg2-binary
+- **MANTENIDAS**: django-allauth, Pillow, python-decouple, sqlparse
+- Actualizado requirements.txt con solo dependencias necesarias
 
 ### 🔧 Mejoras Técnicas
-- Configuración de Channels para desarrollo (InMemoryChannelLayer)
-- Manejo condicional de ElevenLabs API
+- **COMENTADO**: Configuración de Channels para desarrollo (InMemoryChannelLayer)
+- **COMENTADO**: Manejo condicional de ElevenLabs API
 - Mejor manejo de errores en funciones de utilidad
 - Configuración de caché y middleware optimizada
 
@@ -43,16 +52,22 @@
 4. Implementar modelo Notification para sistema de notificaciones
 
 ### 🚀 Funcionalidad (Prioridad Media)
-1. Implementar sistema completo de WebSockets
-2. Configurar Redis para Channels en producción
-3. Implementar sistema de búsqueda avanzada
-4. Agregar tests unitarios y de integración
+1. Implementar sistema de búsqueda avanzada
+2. Agregar tests unitarios y de integración
+3. Implementar sistema de comentarios en lecciones
+4. Agregar sistema de progreso del usuario
 
 ### 🎨 UX/UI (Prioridad Baja)
 1. Mejorar responsive design
 2. Agregar animaciones y transiciones
 3. Implementar dark mode
 4. Optimizar performance de carga
+
+### 🔮 Funcionalidades Futuras (Opcional)
+1. Implementar sistema completo de WebSockets para chat en tiempo real
+2. Configurar ElevenLabs para generación de audio
+3. Agregar sistema de gamificación
+4. Implementar API REST para aplicaciones móviles
 
 ## Variables de Entorno Requeridas
 
@@ -66,8 +81,8 @@ DEBUG=True
 # Configuración de Base de Datos
 DATABASE_URL=sqlite:///db.sqlite3
 
-# Configuración de APIs
-ELEVENLABS_API_KEY=tu-api-key-aqui
+# Configuración de APIs - Comentado ya que no se usa
+# ELEVENLABS_API_KEY=tu-api-key-aqui
 
 # Configuración de Seguridad
 CORS_ALLOW_ALL_ORIGINS=True

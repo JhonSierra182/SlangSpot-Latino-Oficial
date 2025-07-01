@@ -25,7 +25,7 @@
     left: 0;
     right: 0;
     height: 6px;
-    background: #FFD700;
+    background: #007BFF;
 }
 
 .auth-header {
@@ -36,7 +36,7 @@
 .auth-header h3 {
     font-size: 2rem;
     font-weight: 600;
-    color: #1a1a1a;
+    color: #212529;
     margin: 0;
     letter-spacing: -0.5px;
 }
@@ -68,14 +68,14 @@
 }
 
 .form-group input:focus {
-    border-color: #FFD700;
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+    border-color: #007BFF;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
     outline: none;
 }
 
 .btn-auth {
-    background: #FFD700;
-    color: #1a1a1a;
+    background: #007BFF;
+    color: white;
     border: none;
     border-radius: 12px;
     padding: 1.25rem;
@@ -89,13 +89,14 @@
 }
 
 .btn-auth:hover {
-    background: #FFC800;
+    background: #0056B3;
+    color: white;
     transform: translateY(-1px);
 }
 
 .btn-auth:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2);
 }
 
 .social-divider {
@@ -165,7 +166,7 @@
 }
 
 .auth-footer a {
-    color: #1a1a1a;
+    color: #212529;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease;
@@ -173,7 +174,7 @@
 }
 
 .auth-footer a:hover {
-    color: #FFD700;
+    color: #007BFF;
 }
 
 .alert {

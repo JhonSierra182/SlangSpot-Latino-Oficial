@@ -4,565 +4,616 @@
 {% block title %}SlangSpot Latino{% endblock %}
 
 {% block content %}
-<div class="simple-home">
-    <!-- Banner Principal -->
-    <div class="hero-banner">
-        <div class="banner-content">
-            <div class="banner-text">
-                <h1>Aprende Español Latino</h1>
-                <p class="tagline">Descubre el español auténtico de América Latina</p>
-                <p class="description">Lecciones prácticas, expresiones reales y cultura latina en una sola plataforma</p>
-            </div>
-            <div class="banner-logo">
-                <img src="{% static 'core/images/slangspot-logo.png' %}" alt="SlangSpot Latino Logo" class="banner-logo-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Botones de Acción -->
-    <div class="cta-section">
-        {% if user.is_authenticated %}
-            <a href="{% url 'core:lesson_list' %}" class="btn btn-primary">Comenzar a Aprender</a>
-        {% else %}
-            <a href="{% url 'core:register' %}" class="btn btn-primary">Crear Cuenta Gratis</a>
-            <a href="{% url 'core:login' %}" class="btn btn-secondary">Ya tengo cuenta</a>
-        {% endif %}
-    </div>
-
-    <!-- Video Explicativo -->
-    <div class="video-hero-section">
-        <div class="video-hero-background">
-            <div class="video-hero-content">
-                <div class="video-hero-text">
-                    <h2>{{ site_settings.video_explicativo_titulo }}</h2>
-                    <p>{{ site_settings.video_explicativo_descripcion }}</p>
-                    <a href="{{ site_settings.video_explicativo_url }}" target="_blank" class="video-hero-button">
-                        <i class="fab fa-youtube"></i>
-                        <span>Ver Video Explicativo</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-                <div class="video-hero-thumbnail">
-                    <div class="video-frame">
-                        {% if site_settings.video_explicativo_id %}
-                            <iframe 
-                                src="https://www.youtube.com/embed/{{ site_settings.video_explicativo_id }}?rel=0&modestbranding=1" 
-                                title="Video explicativo SlangSpot Latino"
-                                class="hero-video-embed"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
+<div class="memrise-style-home">
+    <!-- Hero Section - Con color neutro -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Aprende español latino<br>
+                        <span class="hero-subtitle">para la vida real</span>
+                    </h1>
+                    <p class="hero-description">
+                        Frases útiles para el día a día.<br>
+                        Aprende con contenido de auténticos latinos.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'core:lesson_list' %}" class="cta-button primary">Comenzar a aprender</a>
                         {% else %}
-                            <a href="{{ site_settings.video_explicativo_url }}" target="_blank" class="video-frame-link">
-                                <img src="{% static 'core/images/Miniatura Youtube.png' %}" alt="Video explicativo SlangSpot Latino" class="hero-thumbnail">
-                                <div class="hero-play-overlay">
-                                    <div class="hero-play-button">
-                                        <i class="fas fa-play"></i>
-                                    </div>
-                                    <div class="play-text">REPRODUCIR</div>
-                                </div>
-                            </a>
+                            <a href="{% url 'core:register' %}" class="cta-button primary">Empezar ya</a>
+                            <a href="{% url 'core:login' %}" class="cta-button secondary">Ya tengo cuenta</a>
                         {% endif %}
                     </div>
                 </div>
+                
+                <div class="hero-logo">
+                    <img src="{% static 'core/images/slangspot-logo.png' %}" alt="SlangSpot Latino Logo" class="hero-logo-image">
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">PAÍSES</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.9</span>
+                    <span class="stat-label">Valoraciones</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Estudiantes</span>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Sección de Beneficios -->
-    <div class="benefits-section">
-        <h2>¿Qué aprenderás?</h2>
-        <p class="benefits-description">Descubre el español latino de forma auténtica y práctica</p>
-        
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-comments"></i>
+    <!-- How it works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Cómo funciona</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Videos auténticos</h3>
+                    <p>Miles de videos sobre cómo se habla español en el mundo real</p>
                 </div>
-                <h3>Expresiones Reales</h3>
-                <p>Aprende el español que realmente se habla en las calles de Colombia y Latinoamérica</p>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-globe-americas"></i>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Expresiones reales</h3>
+                    <p>Aprenderás las expresiones más necesarias diseñadas por hablantes nativos</p>
                 </div>
-                <h3>Cultura Latina</h3>
-                <p>Sumérgete en la rica cultura latinoamericana mientras mejoras tu español</p>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-users"></i>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Ejercicios divertidos</h3>
+                    <p>Pon a prueba tu soltura con el idioma de forma entretenida</p>
                 </div>
-                <h3>Comunidad Activa</h3>
-                <p>Practica con otros estudiantes y conecta con hablantes nativos</p>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Inmersión total</h3>
+                    <p>Sumérgete en el idioma, será como si vivieras en Latinoamérica</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Enlaces a Redes -->
-    <div class="social-section">
-        <h2>Conecta conmigo</h2>
-        <p class="section-description">Aprende español latino a través de diferentes formatos y plataformas</p>
-        
-        <div class="social-grid">
-            <div class="social-card youtube">
-                <div class="card-icon">
-                    <i class="fab fa-youtube"></i>
+    <!-- Why SlangSpot Section -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="section-title">¿Por qué es mejor aprender con SlangSpot?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Memoria acelerada</h3>
+                    <p>Basado en técnicas de memorización científicamente demostradas</p>
                 </div>
-                <div class="card-content">
+                <div class="benefit-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Aprende el doble de rápido</h3>
+                    <p>Pon a prueba tu memoria a largo plazo con métodos prácticos</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Aprendizaje de inmersión</h3>
+                    <p>Será como si vivieras en Latinoamérica</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-target"></i>
+                    </div>
+                    <h3>Metas personalizadas</h3>
+                    <p>Personaliza el contenido que quieres aprender</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-content">
+                <div class="video-text">
+                    <h2>{{ site_settings.video_explicativo_titulo|default:"Conoce SlangSpot Latino" }}</h2>
+                    <p>{{ site_settings.video_explicativo_descripcion|default:"Descubre cómo aprender español latino de forma auténtica y divertida" }}</p>
+                </div>
+                <div class="video-player">
+                    {% if site_settings.video_explicativo_id %}
+                        <iframe 
+                            src="https://www.youtube.com/embed/{{ site_settings.video_explicativo_id }}?rel=0&modestbranding=1" 
+                            title="Video explicativo SlangSpot Latino"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    {% else %}
+                        <a href="{{ site_settings.video_explicativo_url|default:'#' }}" target="_blank" class="video-thumbnail">
+                            <img src="{% static 'core/images/Miniatura Youtube.png' %}" alt="Video explicativo SlangSpot Latino">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Channels -->
+    <section class="social-section">
+        <div class="container">
+            <h2 class="section-title">Conecta conmigo</h2>
+            <div class="social-grid">
+                <div class="social-card">
+                    <div class="social-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                    </div>
                     <h3>YouTube</h3>
                     <p>Videos educativos con expresiones colombianas y latinas</p>
-                    <a href="https://www.youtube.com/@aprendeconjhons" target="_blank" class="card-link">
+                    <a href="https://www.youtube.com/@aprendeconjhons" target="_blank" class="social-link">
                         Ver Canal
-                        <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
-            </div>
-
-            <div class="social-card podcast">
-                <div class="card-icon">
-                    <i class="fas fa-podcast"></i>
-                </div>
-                <div class="card-content">
+                <div class="social-card">
+                    <div class="social-icon podcast">
+                        <i class="fas fa-podcast"></i>
+                    </div>
                     <h3>Podcast</h3>
                     <p>SlangSpot Latino - Aprende español mientras haces otras actividades</p>
-                    <a href="https://podcasts.apple.com/co/podcast/slangspot-latino/id1787990919" target="_blank" class="card-link">
+                    <a href="https://podcasts.apple.com/co/podcast/slangspot-latino/id1787990919" target="_blank" class="social-link">
                         Escuchar
-                        <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
-            </div>
-
-            <div class="social-card italki">
-                <div class="card-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div class="card-content">
+                <div class="social-card">
+                    <div class="social-icon italki">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
                     <h3>Clases 1 a 1</h3>
                     <p>Clases personalizadas en italki para practicar conversación</p>
-                    <a href="https://www.italki.com/es/i/reft/AEefACF/FBd6bc/spanish?hl=es&utm_medium=share_teacher&utm_source=copylink_share" target="_blank" class="card-link">
+                    <a href="https://www.italki.com/es/i/reft/AEefACF/FBd6bc/spanish?hl=es&utm_medium=share_teacher&utm_source=copylink_share" target="_blank" class="social-link">
                         Reservar Clase
-                        <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Sección de Donación -->
-    <div class="donation-section">
-        <div class="donation-content">
-            <div class="donation-text">
-                <h2>¿Te gusta SlangSpot Latino?</h2>
-                <p>Ayúdame a crear más contenido gratuito para la comunidad</p>
+    <!-- Donation Section -->
+    <section class="donation-section">
+        <div class="container">
+            <div class="donation-content">
+                <div class="donation-text">
+                    <h2>¿Te gusta SlangSpot Latino?</h2>
+                    <p>Ayúdame a crear más contenido gratuito para la comunidad</p>
+                </div>
+                <a href="https://paypal.me/jhonsierramusica?country.x=CO&locale.x=es_XC" target="_blank" class="donation-button">
+                    <i class="fab fa-paypal"></i>
+                    <span>Apoyar con PayPal</span>
+                    <i class="fas fa-heart"></i>
+                </a>
             </div>
-            <a href="https://paypal.me/jhonsierramusica?country.x=CO&locale.x=es_XC" target="_blank" class="donation-button">
-                <i class="fab fa-paypal"></i>
-                <span>Apoyar con PayPal</span>
-                <i class="fas fa-heart"></i>
-            </a>
         </div>
-    </div>
+    </section>
+
+
 </div>
 
 <style>
-/* Importar Poppins desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
-/* Variables CSS para consistencia */
-:root {
-    /* Colores de la bandera colombiana - Versión más suave */
-    --primary-color: #2563eb;      /* Azul más claro y moderno */
-    --secondary-color: #3b82f6;    /* Azul medio más suave */
-    --light-blue: #eff6ff;        /* Azul muy claro para fondos */
-    --accent-color: #FCD116;     /* Amarillo de la bandera */
-    --accent-red: #CE1126;        /* Rojo de la bandera */
-    --white: #ffffff;
-    --gray-light: #f8f9fa;
-    --gray-dark: #202124;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
-    --transition: all 0.3s ease;
-}
-
-/* Aplicar Poppins a todo el home */
-.simple-home {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+/* Estilos con nueva paleta de colores */
+.memrise-style-home {
     font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #023047;
 }
 
-/* Banner Principal - UX Optimizado */
-.hero-banner {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 0;
-    margin: 0;
-    padding: 80px 20px;
-    color: var(--white);
-    box-shadow: var(--shadow);
-    width: 100%;
-}
-
-.banner-content {
-    display: flex;
-    align-items: center;
-    gap: 60px;
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.banner-text {
-    flex: 1;
+/* Hero Section */
+.hero-section {
+    background: #FFB703;
+    color: #023047;
+    padding: 80px 0;
+    text-align: center;
 }
 
-.banner-text h1 {
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.hero-text {
+    text-align: left;
+}
+
+.hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 16px;
-    line-height: 1.1;
-    font-family: 'Poppins', sans-serif;
-    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.2;
+    color: #023047;
 }
 
-.tagline {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 12px;
-    opacity: 0.95;
-    font-family: 'Poppins', sans-serif;
-    color: var(--white);
+.hero-subtitle {
+    font-weight: 400;
+    opacity: 0.9;
 }
 
-.description {
-    font-size: 1.1rem;
-    opacity: 0.85;
+.hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
     line-height: 1.6;
-    font-family: 'Poppins', sans-serif;
-    color: var(--white);
+    color: #023047;
 }
 
-.banner-logo {
-    flex-shrink: 0;
+.hero-cta {
+    margin-bottom: 40px;
 }
 
-.banner-logo-image {
-    width: 350px;
-    height: auto;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-}
-
-/* Botones de Acción - UX Optimizado */
-.cta-section {
-    text-align: center;
-    margin: 60px 0;
-    padding: 0 20px;
-    width: 100%;
-}
-
-.btn {
+.cta-button {
     display: inline-block;
     padding: 16px 32px;
-    margin: 10px;
-    border-radius: var(--border-radius);
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: var(--transition);
-    border: none;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    margin: 0 10px;
 }
 
-.btn-primary {
-    background: var(--accent-color);
-    color: var(--primary-color);
-    box-shadow: var(--shadow);
+.cta-button.primary {
+    background: #023047;
+    color: #FFB703;
 }
 
-.btn-primary:hover {
-    background: #e6bc15;
+.cta-button.primary:hover {
+    background: #012233;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    color: #FFB703;
+    text-decoration: none;
 }
 
-.btn-secondary {
+.cta-button.secondary {
     background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: #023047;
+    border: 2px solid #023047;
 }
 
-.btn-secondary:hover {
-    background: var(--primary-color);
-    color: var(--white);
-    transform: translateY(-2px);
+.cta-button.secondary:hover {
+    background: #023047;
+    color: #FFB703;
+    text-decoration: none;
 }
 
-/* Sección de Beneficios - UX Optimizado */
-.benefits-section {
+.cta-button.large {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+}
+
+.hero-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-logo-image {
+    width: 500px;
+    height: auto;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+}
+
+.hero-logo-image:hover {
+    transform: scale(1.05);
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 40px;
+}
+
+.stat-item {
     text-align: center;
-    margin: 80px 0;
-    padding: 60px 20px;
-    width: 100%;
-    background: var(--gray-light);
 }
 
-.benefits-section h2 {
+.stat-number {
+    display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 16px;
-    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+    color: #023047;
 }
 
-.benefits-description {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: 50px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Poppins', sans-serif;
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #023047;
+}
+
+/* Sections */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: #023047;
+}
+
+.how-it-works {
+    padding: 100px 0;
+    background: white;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: #FFB703;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: #023047;
+    font-size: 2rem;
+}
+
+.feature-item h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #023047;
+}
+
+.feature-item p {
+    color: #6C757D;
+    line-height: 1.6;
+}
+
+/* Why Section */
+.why-section {
+    padding: 100px 0;
+    background: #FEFAE0;
 }
 
 .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
 }
 
-.benefit-card {
-    background: var(--white);
-    border-radius: var(--border-radius);
-    padding: 40px 30px;
+.benefit-item {
     text-align: center;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
-}
-
-.benefit-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.benefit-card:hover::before {
-    transform: scaleX(1);
-}
-
-.benefit-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    padding: 30px 20px;
 }
 
 .benefit-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: #023047;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 24px;
-    transition: var(--transition);
-}
-
-.benefit-card:hover .benefit-icon {
-    transform: scale(1.1);
-}
-
-.benefit-icon i {
+    margin: 0 auto 20px;
+    color: #FFB703;
     font-size: 2rem;
-    color: var(--white);
 }
 
-.benefit-card h3 {
-    font-size: 1.4rem;
+.benefit-item h3 {
+    font-size: 1.5rem;
     font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 16px;
-    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+    color: #023047;
 }
 
-.benefit-card p {
-    font-size: 1rem;
-    color: var(--text-light);
+.benefit-item p {
+    color: #6C757D;
     line-height: 1.6;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
 }
 
-/* Sección de Redes Sociales - UX Optimizado */
-.social-section {
-    text-align: center;
-    margin: 60px 0;
-    padding: 60px 20px;
-    background: var(--white);
+/* Video Section */
+.video-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.video-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.video-text h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #023047;
+}
+
+.video-text p {
+    font-size: 1.2rem;
+    color: #6C757D;
+    line-height: 1.6;
+}
+
+.video-player {
+    position: relative;
+}
+
+.video-player iframe {
     width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.social-section h2 {
-    color: var(--text-dark);
+.video-thumbnail {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 183, 3, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #023047;
     font-size: 2rem;
-    margin-bottom: 12px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
-.section-description {
-    color: var(--text-light);
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Poppins', sans-serif;
+.video-thumbnail:hover .play-overlay {
+    background: #FFB703;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Social Section */
+.social-section {
+    padding: 100px 0;
+    background: #FEFAE0;
 }
 
 .social-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
 }
 
 .social-card {
-    background: var(--white);
-    border-radius: var(--border-radius);
-    padding: 32px 24px;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
     text-align: center;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
-}
-
-.social-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--accent-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.social-card:hover::before {
-    transform: scaleX(1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
 }
 
 .social-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card-icon {
-    margin-bottom: 20px;
-}
-
-.card-icon i {
-    font-size: 3rem;
-    display: block;
-}
-
-/* Colores específicos para cada red social */
-.youtube .card-icon i { color: #FF0000; }
-.podcast .card-icon i { color: #AE40A7; }
-.italki .card-icon i { color: #FF7A00; }
-.paypal .card-icon i { color: #0070BA; }
-
-.card-content h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--text-dark);
-    font-family: 'Poppins', sans-serif;
-}
-
-.card-content p {
-    font-size: 0.95rem;
-    color: var(--text-light);
-    line-height: 1.6;
-    margin-bottom: 20px;
-    min-height: 48px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.card-link {
-    display: inline-flex;
+.social-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    background: var(--primary-color);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: var(--border-radius);
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 2rem;
+}
+
+.social-icon.youtube {
+    background: #FF0000;
+}
+
+.social-icon.podcast {
+    background: #AE40A7;
+}
+
+.social-icon.italki {
+    background: #FF7A00;
+}
+
+.social-card h3 {
+    font-size: 1.5rem;
     font-weight: 600;
-    font-size: 0.9rem;
-    transition: var(--transition);
-    border: none;
-    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+    color: #023047;
 }
 
-.card-link:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.social-card p {
+    color: #6C757D;
+    margin-bottom: 25px;
+    line-height: 1.6;
 }
 
-.card-link i {
-    font-size: 0.8rem;
+.social-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #FFB703;
+    color: #023047;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-/* Sección de Donación - UX Optimizado */
+.social-link:hover {
+    background: #E6A500;
+    color: #023047;
+    text-decoration: none;
+}
+
+/* Donation Section */
 .donation-section {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 0;
-    margin: 0;
-    padding: 80px 20px;
+    padding: 80px 0;
+    background: #023047;
+    color: white;
     text-align: center;
-    color: var(--white);
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.donation-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    pointer-events: none;
 }
 
 .donation-content {
-    position: relative;
-    z-index: 1;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -570,17 +621,15 @@
 .donation-text h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--white);
-    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+    color: white;
 }
 
 .donation-text p {
     font-size: 1.2rem;
+    margin-bottom: 40px;
     opacity: 0.9;
-    margin-bottom: 32px;
-    line-height: 1.6;
-    font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
 .donation-button {
@@ -588,8 +637,8 @@
     align-items: center;
     gap: 12px;
     padding: 18px 36px;
-    background: var(--accent-color);
-    color: var(--primary-color);
+    background: #FFB703;
+    color: #023047;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
@@ -598,34 +647,14 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-}
-
-.donation-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.donation-button:hover::before {
-    left: 100%;
 }
 
 .donation-button:hover {
-    background: #e6bc15;
+    background: #E6A500;
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-}
-
-.donation-button:active {
-    transform: translateY(-2px);
+    color: #023047;
+    text-decoration: none;
 }
 
 .donation-button i {
@@ -642,376 +671,71 @@
     50% { transform: scale(1.1); }
 }
 
-/* Responsive Design - UX Optimizado */
+/* Final CTA */
+.final-cta {
+    padding: 100px 0;
+    background: #FFB703;
+    color: #023047;
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #023047;
+}
+
+.cta-content p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    color: #023047;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .banner-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-        padding: 0 15px;
-    }
-    
-    .banner-text h1 {
+    .hero-title {
         font-size: 2.5rem;
     }
     
-    .tagline {
-        font-size: 1.2rem;
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
     }
     
-    .banner-logo-image {
-        width: 350px;
+    .hero-text {
+        text-align: center;
     }
     
-    .hero-banner {
-        padding: 60px 15px;
+    .hero-stats {
+        flex-direction: column;
+        gap: 30px;
     }
     
-    .cta-section {
-        padding: 0 15px;
+    .video-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
     
-    .benefits-section {
-        margin: 60px 0;
-        padding: 40px 15px;
-    }
-    
-    .benefits-section h2 {
-        font-size: 2rem;
-    }
-    
-    .benefits-description {
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-    }
-    
+    .features-grid,
     .benefits-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 0 15px;
-    }
-    
-    .benefit-card {
-        padding: 30px 24px;
-    }
-    
-    .benefit-icon {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .benefit-icon i {
-        font-size: 1.8rem;
-    }
-    
-    .benefit-card h3 {
-        font-size: 1.3rem;
-    }
-    
-    .benefit-card p {
-        font-size: 0.95rem;
-    }
-    
-    .social-section {
-        padding: 40px 15px;
-        margin: 40px 0;
-    }
-    
-    .social-section h2 {
-        font-size: 1.8rem;
-    }
-    
-    .section-description {
-        font-size: 1rem;
-        margin-bottom: 30px;
     }
     
     .social-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 15px;
     }
     
-    .social-card {
-        padding: 24px 20px;
+    .cta-button {
+        display: block;
+        margin: 10px 0;
     }
     
-    .card-icon i {
-        font-size: 2.5rem;
+    .hero-logo-image {
+        width: 200px;
     }
-    
-    .card-content h3 {
-        font-size: 1.3rem;
-    }
-    
-    .card-content p {
-        font-size: 0.9rem;
-        min-height: auto;
-    }
-    
-    .donation-section {
-        padding: 60px 15px;
-    }
-    
-    .donation-text h2 {
-        font-size: 2rem;
-    }
-    
-    .donation-text p {
-        font-size: 1.1rem;
-        margin-bottom: 24px;
-    }
-    
-    .donation-button {
-        padding: 16px 28px;
-        font-size: 1rem;
-    }
-    
-    /* Video responsive */
-    .video-hero-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 50px;
-        padding: 60px 20px;
-    }
-    
-    .video-hero-text {
-        text-align: center;
-    }
-    
-    .video-hero-text h2 {
-        font-size: 2.5rem;
-    }
-    
-    .video-hero-text p {
-        font-size: 1.1rem;
-        max-width: 100%;
-    }
-    
-    .hero-thumbnail {
-        width: 400px;
-        height: 240px;
-    }
-    
-    .hero-play-button {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .hero-play-button i {
-        font-size: 2.5rem;
-    }
-    
-    .video-hero-button {
-        padding: 16px 32px;
-        font-size: 1.1rem;
-    }
-    
-    .play-text {
-        font-size: 1rem;
-    }
-}
-
-/* Accesibilidad - UX Optimizado */
-@media (prefers-reduced-motion: reduce) {
-    .btn, .social-card {
-        transition: none;
-    }
-}
-
-/* Focus states para accesibilidad */
-.btn:focus, .social-card:focus {
-    outline: 3px solid var(--accent-color);
-    outline-offset: 2px;
-}
-
-/* Video Explicativo - Diseño Hero Minimalista */
-.video-hero-section {
-    width: 100%;
-    margin: 100px 0;
-    padding: 0;
-    background: var(--gray-light);
-    position: relative;
-    overflow: hidden;
-}
-
-.video-hero-background {
-    position: relative;
-    z-index: 1;
-    padding: 80px 20px;
-}
-
-.video-hero-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    color: var(--text-dark);
-}
-
-.video-hero-text {
-    flex: 1;
-    text-align: left;
-}
-
-.video-hero-text h2 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.1;
-    color: var(--text-dark);
-}
-
-.video-hero-text p {
-    font-size: 1.3rem;
-    line-height: 1.7;
-    margin-bottom: 40px;
-    font-family: 'Poppins', sans-serif;
-    opacity: 0.8;
-    max-width: 500px;
-    color: var(--text-light);
-}
-
-.video-hero-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 40px;
-    background: var(--accent-color);
-    color: var(--primary-color);
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    transition: all 0.4s ease;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 8px 32px rgba(252, 209, 22, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.video-hero-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.video-hero-button:hover::before {
-    left: 100%;
-}
-
-.video-hero-button:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 16px 48px rgba(252, 209, 22, 0.4);
-    color: var(--primary-color);
-}
-
-.video-hero-button i {
-    font-size: 1.4rem;
-}
-
-.video-hero-thumbnail {
-    flex-shrink: 0;
-    position: relative;
-}
-
-.video-frame-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.4s ease;
-}
-
-.video-frame-link:hover {
-    transform: scale(1.02);
-}
-
-.video-frame {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease;
-}
-
-.video-frame:hover {
-    transform: scale(1.02);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-}
-
-.hero-video-embed {
-    width: 600px;
-    height: 360px;
-    border-radius: 20px;
-    display: block;
-}
-
-.hero-thumbnail {
-    width: 600px;
-    height: 360px;
-    object-fit: cover;
-    display: block;
-}
-
-.hero-play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.4s ease;
-}
-
-.video-frame:hover .hero-play-overlay {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.hero-play-button {
-    width: 120px;
-    height: 120px;
-    background: var(--accent-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.hero-play-button i {
-    color: var(--primary-color);
-    font-size: 3rem;
-    margin-left: 8px;
-}
-
-.video-frame:hover .hero-play-button {
-    background: #e6bc15;
-    transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
-.play-text {
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
 {% endblock %} 

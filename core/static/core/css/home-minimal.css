@@ -1,16 +1,16 @@
 /* home-minimal.css - Diseño Minimalista y Moderno para SlangSpot Latino */
 
 :root {
-    --primary: #1a1a1a;
-    --secondary: #f8f9fa;
-    --accent: #007bff;
-    --text: #333333;
-    --text-light: #666666;
+    --primary: #007BFF;
+    --secondary: #F8F9FA;
+    --accent: #28A745;
+    --text: #212529;
+    --text-light: #6C757D;
     --background: #ffffff;
-    --background-alt: #f8f9fa;
-    --border: #e9ecef;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --background-alt: #F8F9FA;
+    --border: #DEE2E6;
+    --shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 123, 255, 0.12);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --border-radius: 12px;
     --spacing-xs: 0.5rem;
@@ -125,7 +125,8 @@ html body.home-page .btn-register {
 }
 
 html body.home-page .btn-register:hover {
-    background: #0056b3 !important;
+    background: #0056B3 !important;
+    color: white !important;
     transform: translateY(-1px) !important;
     box-shadow: var(--shadow) !important;
 }
@@ -146,7 +147,7 @@ html body.home-page .hero-banner::before {
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(0, 123, 255, 0.02)) !important;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(40, 167, 69, 0.02)) !important;
     z-index: 0 !important;
 }
 

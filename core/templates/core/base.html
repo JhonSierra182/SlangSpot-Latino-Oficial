@@ -41,20 +41,13 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 SlangSpot Latino</p>
+        <div class="footer-content">
+            <p>&copy; 2024 SlangSpot Latino</p>
+        </div>
     </footer>
 
     <style>
-        /* Variables CSS para consistencia */
-        :root {
-            --primary-color: #2563eb;      /* Azul más claro y moderno */
-            --secondary-color: #3b82f6;    /* Azul medio más suave */
-            --accent-color: #FCD116;     /* Amarillo de la bandera */
-            --white: #ffffff;
-            --gray-light: #f8f9fa;
-            --gray-dark: #202124;
-        }
-
+        /* Estilos con nueva paleta de colores */
         * {
             margin: 0;
             padding: 0;
@@ -64,14 +57,17 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #023047;
+            background: #FEFAE0;
         }
 
+        /* Header */
         header {
-            background: transparent;
-            color: var(--primary-color);
-            padding: 1.5rem 0;
-            position: relative;
+            background: white;
+            border-bottom: 1px solid #E9ECEF;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
 
@@ -87,39 +83,26 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--primary-color);
+            gap: 10px;
+            color: #023047;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.6rem;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: -0.3px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.4rem;
         }
 
         .logo-image {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-            transition: all 0.3s ease;
         }
 
         .logo-text {
-            font-weight: 700;
-            font-size: 1.6rem;
+            font-weight: 600;
         }
 
         .logo:hover {
-            color: var(--secondary-color);
-            transform: scale(1.02);
-            text-shadow: 0 4px 8px rgba(255, 255, 255, 0.9);
-        }
-
-        .logo:hover .logo-image {
-            transform: scale(1.1);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            color: #FFB703;
+            text-decoration: none;
         }
 
         .nav-links {
@@ -128,35 +111,16 @@
         }
 
         .nav-links a {
-            color: var(--primary-color);
+            color: #6C757D;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
-            font-family: 'Poppins', sans-serif;
-            position: relative;
-            padding: 8px 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+            color: #FFB703;
+            text-decoration: none;
         }
 
         .auth-buttons {
@@ -166,149 +130,95 @@
         }
 
         .user-greeting {
-            color: var(--primary-color);
+            color: #6C757D;
             font-weight: 500;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
         }
 
         .auth-btn {
-            color: #1e40af !important;
             text-decoration: none;
-            padding: 10px 20px;
-            border: 2px solid #1e40af;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-            font-weight: 600;
-            font-size: 0.95rem;
-            font-family: 'Poppins', sans-serif;
-            position: relative;
-            overflow: hidden;
-            background: white;
         }
 
-        .auth-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-color);
-            transition: left 0.3s ease;
-            z-index: -1;
+        .auth-btn.login {
+            color: #023047;
+            background: transparent;
         }
 
-        .auth-btn:hover {
-            color: #1e40af !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background: white;
-        }
-
-        .auth-btn.signup:hover {
-            background: white;
-            border-color: #1e40af;
-            color: #1e40af !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        main {
-            min-height: 70vh;
-        }
-
-        footer {
-            background: #f5f5f5;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 20px;
-                padding: 0 15px;
-            }
-
-            .logo {
-                font-size: 1.4rem;
-            }
-
-            .logo-image {
-                width: 35px;
-                height: 35px;
-            }
-
-            .logo-text {
-                font-size: 1.4rem;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
-
-            .nav-links a {
-                font-size: 1rem;
-            }
-
-            .auth-buttons {
-                gap: 10px;
-            }
-
-            .auth-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .logo-image {
-                width: 30px;
-                height: 30px;
-            }
-
-            .logo-text {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .auth-buttons {
-                flex-direction: column;
-                gap: 8px;
-            }
-        }
-
-        .logo, .nav-links a, .auth-btn, .user-greeting {
-            color: #1e40af !important;
-        }
-
-        .logo:hover, .nav-links a:hover, .auth-btn:hover {
-            color: #1e40af !important;
+        .auth-btn.login:hover {
+            background: #FEFAE0;
+            color: #FFB703;
+            text-decoration: none;
         }
 
         .auth-btn.signup {
-            background: var(--accent-color);
-            color: #1e40af !important;
-            border-color: var(--accent-color);
+            background: #FFB703;
+            color: #023047;
         }
 
         .auth-btn.signup:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-            color: #1e40af !important;
+            background: #E6A500;
+            color: #023047;
+            text-decoration: none;
+        }
+
+        .auth-btn.logout {
+            color: #6C757D;
+            background: transparent;
+        }
+
+        .auth-btn.logout:hover {
+            color: #DC3545;
+            text-decoration: none;
+        }
+
+        /* Main */
+        main {
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Footer */
+        footer {
+            background: #023047;
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .footer-content p {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .auth-buttons {
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </body>

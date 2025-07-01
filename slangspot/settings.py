@@ -41,19 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',  # Necesario para allauth
     'core',
-    'rest_framework',
-    'corsheaders',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'channels',  # Agregado para WebSockets
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -154,8 +150,8 @@ FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS settings
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)  # Solo para desarrollo
+# CORS settings - Comentado ya que no se usa
+# CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=bool)  # Solo para desarrollo
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
@@ -217,13 +213,13 @@ CACHES = {
     }
 }
 
-# Configuración de Channels
-ASGI_APPLICATION = 'slangspot.asgi.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',  # Para desarrollo, usar Redis en producción
-    },
-}
+# Configuración de Channels - Comentado ya que no se usa
+# ASGI_APPLICATION = 'slangspot.asgi.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels.layers.InMemoryChannelLayer',  # Para desarrollo, usar Redis en producción
+#     },
+# }
 
-# Configuración de ElevenLabs (para generación de audio)
-ELEVENLABS_API_KEY = config('ELEVENLABS_API_KEY', default='')
+# Configuración de ElevenLabs - Comentado ya que no se usa
+# ELEVENLABS_API_KEY = config('ELEVENLABS_API_KEY', default='')

@@ -1,54 +1,55 @@
 import os
 from django.conf import settings
 import tempfile
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
 from django.utils import timezone
 from django.db.models import Q, Count
 from django.contrib.auth.models import User
 from .models import ForumPost, Comment, UserProfile
 
-# Importaciones condicionales para ElevenLabs
-try:
-    from elevenlabs import generate, save, set_api_key
-    ELEVENLABS_AVAILABLE = True
-except ImportError:
-    ELEVENLABS_AVAILABLE = False
-    print("Warning: ElevenLabs no está disponible. La generación de audio no funcionará.")
+# Importaciones condicionales para ElevenLabs - Comentado ya que no se usa
+# try:
+#     from elevenlabs import generate, save, set_api_key
+#     ELEVENLABS_AVAILABLE = True
+# except ImportError:
+#     ELEVENLABS_AVAILABLE = False
+#     print("Warning: ElevenLabs no está disponible. La generación de audio no funcionará.")
 
 def generate_audio(text, filename):
     """
-    Genera un archivo de audio usando ElevenLabs API
+    Genera un archivo de audio usando ElevenLabs API - Comentado ya que no se usa
     """
-    if not ELEVENLABS_AVAILABLE:
-        print("Error: ElevenLabs no está disponible")
-        return False
+    # if not ELEVENLABS_AVAILABLE:
+    #     print("Error: ElevenLabs no está disponible")
+    #     return False
     
-    if not settings.ELEVENLABS_API_KEY:
-        print("Error: ELEVENLABS_API_KEY no está configurada")
-        return False
+    # if not settings.ELEVENLABS_API_KEY:
+    #     print("Error: ELEVENLABS_API_KEY no está configurada")
+    #     return False
     
-    try:
-        # Configurar la API key
-        set_api_key(settings.ELEVENLABS_API_KEY)
+    # try:
+    #     # Configurar la API key
+    #     set_api_key(settings.ELEVENLABS_API_KEY)
         
-        # Generar el audio
-        audio = generate(
-            text=text,
-            voice="Josh",  # Voz en inglés
-            model="eleven_monolingual_v1"
-        )
+    #     # Generar el audio
+    #     audio = generate(
+    #         text=text,
+    #         voice="Josh",  # Voz en inglés
+    #         model="eleven_monolingual_v1"
+    #     )
         
-        # Crear el directorio si no existe
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
+    #     # Crear el directorio si no existe
+    #     os.makedirs(os.path.dirname(filename), exist_ok=True)
         
-        # Guardar el audio
-        save(audio, filename)
+    #     # Guardar el audio
+    #     save(audio, filename)
         
-        return True
-    except Exception as e:
-        print(f"Error generando audio: {str(e)}")
-        return False
+    #     return True
+    # except Exception as e:
+    #     print(f"Error generando audio: {str(e)}")
+    #     return False
+    
+    # Por ahora retorna False ya que ElevenLabs no está implementado
+    return False
 
 def create_notification(user, notification_type, message, related_post=None, related_comment=None, related_user=None):
     """
@@ -58,7 +59,7 @@ def create_notification(user, notification_type, message, related_post=None, rel
     # TODO: Implementar cuando se cree el modelo Notification
     print(f"Notificación para {user.username}: {message}")
     
-    # Enviar notificación en tiempo real (comentado hasta implementar Notification)
+    # Enviar notificación en tiempo real (comentado hasta implementar Notification y WebSockets)
     # channel_layer = get_channel_layer()
     # async_to_sync(channel_layer.group_send)(
     #     f"user_{user.id}_notifications",

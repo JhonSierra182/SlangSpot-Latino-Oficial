@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-    /* Paleta Principal del Sitio */
+    /* Paleta Principal del Sitio - Paleta Memrise */
     --azul-llamativo: #007BFF;
     --rojo-cta: #DC3545;
     --gris-texto: #212529;
@@ -8,31 +8,31 @@
     --blanco: #FFFFFF;
     --borde: #DEE2E6;
 
-    /* Paleta de Colombia para Autenticación */
-    --colombia-yellow: #FCD116;
-    --colombia-blue: #003087;
-    --colombia-red: #CE1126;
+    /* Paleta de Colombia para Autenticación - Actualizada */
+    --colombia-yellow: #FFC107;
+    --colombia-blue: #007BFF;
+    --colombia-red: #DC3545;
 
     /* Variables globales */
-    --azul-hover: #0056b3;
-    --gris-medio: #e9ecef;
-    --gris-oscuro: #343a40;
-    --verde-exito: #28a745;
-    --rojo-error: #dc3545;
-    --amarillo-alerta: #ffc107;
-    --sombra-suave: 0 2px 4px rgba(0,0,0,0.1);
-    --sombra-media: 0 4px 6px rgba(0,0,0,0.1);
-    --sombra-fuerte: 0 10px 15px rgba(0,0,0,0.1);
+    --azul-hover: #0056B3;
+    --gris-medio: #E9ECEF;
+    --gris-oscuro: #6C757D;
+    --verde-exito: #28A745;
+    --rojo-error: #DC3545;
+    --amarillo-alerta: #FFC107;
+    --sombra-suave: 0 2px 4px rgba(0, 123, 255, 0.1);
+    --sombra-media: 0 4px 6px rgba(0, 123, 255, 0.1);
+    --sombra-fuerte: 0 10px 15px rgba(0, 123, 255, 0.1);
     --transicion-rapida: all 0.3s ease;
 
     /* Variables de colores */
     --white: #FFFFFF;
-    --light-gray: #f8f9fa;
-    --dark-gray: #2c3e50;
-    --text-color: #333333;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --light-gray: #F8F9FA;
+    --dark-gray: #212529;
+    --text-color: #212529;
+    --shadow-sm: 0 2px 4px rgba(0, 123, 255, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 123, 255, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 123, 255, 0.1);
     --transition: all 0.3s ease;
 }
 
@@ -111,7 +111,7 @@ body {
 /* Botones de Navegación */
 .nav-button-primary,
 .nav-button-secondary {
-    background-color: #dc3545;
+    background-color: #007BFF;
     color: white;
     padding: 0.5rem 1rem;
     border: none;
@@ -123,9 +123,10 @@ body {
 
 .nav-button-primary:hover,
 .nav-button-secondary:hover {
-    background-color: #c82333;
+    background-color: #0056B3;
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
 /* Botón de Google */
@@ -157,7 +158,7 @@ body {
 .auth-button {
     width: 100%;
     padding: 1rem;
-    background-color: var(--colombia-red);
+    background-color: var(--colombia-blue);
     color: var(--blanco);
     border: none;
     border-radius: 8px;
@@ -168,12 +169,13 @@ body {
 }
 
 .auth-button:hover {
-    opacity: 0.9;
+    background-color: var(--azul-hover);
+    color: var(--blanco);
 }
 
 /* Hero Banner */
 .hero-banner {
-    background: linear-gradient(135deg, var(--colombia-blue), #0047AB);
+    background: linear-gradient(135deg, var(--colombia-blue), var(--azul-hover));
     color: var(--white);
     padding: 8rem 0;
     position: relative;
