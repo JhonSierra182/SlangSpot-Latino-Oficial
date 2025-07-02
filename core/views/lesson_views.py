@@ -5,18 +5,23 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from ..models import Lesson, Expression
 from ..forms import LessonForm, ExpressionForm
 from .mixins import OwnerRequiredMixin, SuccessMessageMixin, SoftDeleteMixin, SearchMixin
 
+@method_decorator(cache_page(60 * 15), name='dispatch')  # Cache por 15 minutos
 class LessonListView(LoginRequiredMixin, ListView):
     model = Lesson
     template_name = 'core/lessons_index.html'
     context_object_name = 'lessons'
     login_url = '/core/login/'
+    paginate_by = 12  # Mostrar 12 lecciones por página
     
     def get_queryset(self):
-        queryset = Lesson.objects.filter(is_active=True)
+        # Optimizar consulta con select_related para evitar N+1 queries
+        queryset = Lesson.objects.select_related('user').filter(is_active=True)
         
         # Búsqueda
         search_query = self.request.GET.get('q')
@@ -60,14 +65,20 @@ class LessonListView(LoginRequiredMixin, ListView):
         return context
 
 # Vista temporal simple para debug - devuelve texto plano
+@method_decorator(cache_page(60 * 30), name='dispatch')  # Cache por 30 minutos
 class LessonDetailView(DetailView):
     model = Lesson
     template_name = 'core/lesson_detail.html'
     context_object_name = 'lesson'
     
+    def get_queryset(self):
+        # Optimizar consulta con select_related para el usuario
+        return Lesson.objects.select_related('user')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        expressions = self.object.expressions.filter(is_active=True)
+        # Optimizar consulta de expresiones
+        expressions = self.object.expressions.select_related('lesson').filter(is_active=True)
         context['expressions'] = expressions
         return context
 

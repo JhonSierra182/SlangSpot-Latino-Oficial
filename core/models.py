@@ -6,6 +6,7 @@ import uuid
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -26,13 +27,17 @@ class BaseModel(models.Model):
 
 class Expression(BaseModel):
     lesson = models.ForeignKey('Lesson', on_delete=models.CASCADE, related_name='expressions', null=True, blank=True)
-    text = models.CharField(max_length=200, null=True, blank=True)
+    text = models.CharField(max_length=200)
     meaning = models.TextField(null=True, blank=True)
     example = models.TextField(null=True, blank=True)
     audio = models.FileField(upload_to='expression_audio/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.text} - {self.lesson.title if self.lesson else ''}"
+
+    def clean(self):
+        if not self.meaning and not self.example:
+            raise ValidationError("Debe proporcionar al menos un significado o un ejemplo de uso.")
 
     class Meta:
         ordering = ['created_at']
@@ -138,6 +143,13 @@ class Lesson(BaseModel):
         # Si no coincide con ningún patrón, devuelve la URL original
         return self.video_url
     
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        if not self.content or self.content.strip() == '' or self.content == 'Contenido pendiente':
+            raise ValidationError("El contenido de la lección no puede estar vacío.")
+
     class Meta:
         ordering = ['-created_at']
         verbose_name = 'Lección'
@@ -149,9 +161,6 @@ class Lesson(BaseModel):
             models.Index(fields=['country']),
             models.Index(fields=['created_at']),
         ]
-    
-    def __str__(self):
-        return self.title
 
 class ForumPost(BaseModel):
     CATEGORY_CHOICES = [
@@ -205,8 +214,8 @@ class ForumPost(BaseModel):
         verbose_name_plural = 'Publicaciones del Foro'
 
 class Comment(BaseModel):
-    post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name='comments', null=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    post = models.ForeignKey(ForumPost, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     likes = models.ManyToManyField(User, related_name='liked_comments', blank=True)

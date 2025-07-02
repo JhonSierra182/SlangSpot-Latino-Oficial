@@ -1,0 +1,75 @@
+# ========================================
+# PLANTILLA DE CONFIGURACIÓN - SLANGSPOT LATINO
+# ========================================
+# Copia este archivo como .env y configura las variables
+# cp env_template.txt .env
+
+# ========================================
+# CONFIGURACIÓN DE DJANGO
+# ========================================
+# Genera una nueva SECRET_KEY en: https://djecrety.ir/
+SECRET_KEY=django-insecure-cambia-esta-clave-por-una-nueva-y-segura-aqui
+
+# Configuración de entorno
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# ========================================
+# CONFIGURACIÓN DE BASE DE DATOS
+# ========================================
+# Para desarrollo (SQLite)
+DATABASE_URL=sqlite:///db.sqlite3
+
+# Para producción (PostgreSQL) - Descomenta y configura
+# DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/slangspot_db
+
+# ========================================
+# CONFIGURACIÓN DE SEGURIDAD
+# ========================================
+# Configuración para desarrollo (cambiar a True en producción)
+SESSION_COOKIE_SECURE=False
+CSRF_COOKIE_SECURE=False
+SECURE_SSL_REDIRECT=False
+
+# Dominios confiables para CSRF
+CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000,http://localhost:8000
+
+# ========================================
+# CONFIGURACIÓN DE EMAIL
+# ========================================
+# Para desarrollo (consola)
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+
+# Para producción (SMTP) - Descomenta y configura
+# EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+# EMAIL_HOST=smtp.gmail.com
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER=tu-email@gmail.com
+# EMAIL_HOST_PASSWORD=tu-contraseña-de-aplicación
+
+# Configuración de verificación de email
+ACCOUNT_EMAIL_VERIFICATION=none
+
+# ========================================
+# CONFIGURACIÓN DE GOOGLE OAUTH (OPCIONAL)
+# ========================================
+# Para autenticación con Google - Descomenta y configura
+# GOOGLE_CLIENT_ID=tu-google-client-id
+# GOOGLE_CLIENT_SECRET=tu-google-client-secret
+
+# ========================================
+# CONFIGURACIÓN DE APIs (FUTURO)
+# ========================================
+# ElevenLabs para generación de audio - Comentado ya que no se usa
+# ELEVENLABS_API_KEY=tu-api-key-aqui
+
+# ========================================
+# CONFIGURACIÓN DE CACHE
+# ========================================
+# Para desarrollo (memoria local)
+CACHE_BACKEND=django.core.cache.backends.locmem.LocMemCache
+
+# Para producción (Redis) - Descomenta y configura
+# CACHE_BACKEND=django.core.cache.backends.redis.RedisCache
+# CACHE_LOCATION=redis://127.0.0.1:6379/1 

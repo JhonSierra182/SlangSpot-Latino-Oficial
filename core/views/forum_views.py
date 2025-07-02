@@ -16,11 +16,12 @@ class ForumPostListView(LoginRequiredMixin, SearchMixin, ListView):
     template_name = 'core/forum_index.html'
     context_object_name = 'posts'
     search_fields = ['title', 'content']
-    paginate_by = 10
+    paginate_by = 15  # Aumentar paginación para mejor rendimiento
     login_url = '/core/login/'
     
     def get_queryset(self):
-        queryset = super().get_queryset().filter(is_active=True)
+        # Optimizar consulta con select_related para el autor y prefetch_related para likes
+        queryset = ForumPost.objects.select_related('author').prefetch_related('likes').filter(is_active=True)
         category = self.request.GET.get('category', '')
         if category:
             queryset = queryset.filter(category=category)
@@ -39,9 +40,16 @@ class ForumPostDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'post'
     login_url = '/core/login/'
     
+    def get_queryset(self):
+        # Optimizar consulta con select_related para el autor y prefetch_related para likes
+        return ForumPost.objects.select_related('author').prefetch_related('likes')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.filter(parent=None, is_active=True).order_by('-created_at')
+        # Optimizar consulta de comentarios con select_related para el autor
+        context['comments'] = self.object.comments.select_related('author', 'parent').filter(
+            parent=None, is_active=True
+        ).order_by('-created_at')
         context['comment_form'] = CommentForm()
         return context
 
@@ -75,8 +83,12 @@ class ForumPostDeleteView(LoginRequiredMixin, OwnerRequiredMixin, SoftDeleteMixi
 
 @login_required
 def post_detail_view(request, post_id):
-    post = get_object_or_404(ForumPost, id=post_id)
-    comments = post.comments.filter(parent=None, is_active=True).order_by('-created_at')
+    # Optimizar consulta con select_related para el autor
+    post = get_object_or_404(ForumPost.objects.select_related('author'), id=post_id)
+    # Optimizar consulta de comentarios
+    comments = post.comments.select_related('author', 'parent').filter(
+        parent=None, is_active=True
+    ).order_by('-created_at')
     comment_form = CommentForm()
     
     if request.method == 'POST':
