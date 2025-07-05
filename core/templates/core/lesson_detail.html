@@ -135,9 +135,59 @@
 </div>
 
 <style>
-.lesson-detail-container {
-    min-height: 100vh;
-    background-color: #f8f9fa;
+/* Sobrescribir colores blancos */
+.difficulty-beginner, .difficulty-intermediate, .difficulty-advanced,
+.category-slang, .category-proverb, .country {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.lesson-card, .lesson-content, .lesson-meta {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.lesson-card h3, .lesson-card p, .lesson-meta span {
+    color: #023047 !important;
+}
+
+.lesson-overlay {
+    background: rgba(2, 48, 71, 0.08) !important;
+}
+
+.lesson-overlay .btn {
+    background: #023047 !important;
+    color: #FFB703 !important;
+}
+
+.btn.btn-primary {
+    background: #023047;
+    color: #FFB703;
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn.btn-primary:hover {
+    background: #012233;
+    color: #FFB703;
+}
+
+.btn.btn-secondary {
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn.btn-secondary:hover {
+    background: #023047;
+    color: #FFB703;
+}
+
+h1, h2, h3, h4, h5, h6, p, .lesson-meta, .lesson-footer {
+    color: #023047 !important;
 }
 
 .lesson-hero {
@@ -185,13 +235,6 @@
     font-size: 0.9rem;
     font-weight: 500;
 }
-
-.difficulty-beginner { background-color: #28a745; color: white; }
-.difficulty-intermediate { background-color: #ffc107; color: black; }
-.difficulty-advanced { background-color: #dc3545; color: white; }
-.category-slang { background-color: #17a2b8; color: white; }
-.category-proverb { background-color: #6f42c1; color: white; }
-.country { background-color: #6c757d; color: white; }
 
 .lesson-content {
     max-width: 1200px;

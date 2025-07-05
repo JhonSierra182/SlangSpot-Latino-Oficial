@@ -166,7 +166,7 @@ class LessonViewsTest(TestCase):
             'content': 'New test content for the lesson',
             'country': 'MX',
             'level': 'intermediate',
-            'category': 'vocabulary'
+            'category': 'slang'
         }
         response = self.client.post(reverse('core:create_lesson'), form_data)
         self.assertEqual(response.status_code, 302)  # Redirect after successful creation

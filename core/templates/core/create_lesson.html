@@ -16,13 +16,13 @@
         display: block;
     }
     .form-section {
-        background: white;
+        background: #FEFAE0;
         padding: 1.5rem;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .form-section label {
-        color: var(--gris-oscuro);
+        color: #023047;
         font-weight: 600;
         margin-bottom: 0.5rem;
     }
@@ -35,13 +35,15 @@
         padding: 0.75rem;
         width: 100%;
         transition: all 0.2s;
+        background: white;
+        color: #023047;
     }
     .form-section input[type="text"]:focus,
     .form-section input[type="url"]:focus,
     .form-section select:focus,
     .form-section textarea:focus {
-        border-color: var(--azul-llamativo);
-        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+        border-color: #FFB703;
+        box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.1);
     }
     .form-section textarea {
         min-height: 120px;
@@ -79,7 +81,7 @@
                     <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
                     {{ form.title }}
                     {% if form.title.errors %}
-                    <div class="error-message">{{ form.title.errors }}</div>
+                        <div class="error-message">{{ form.title.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -87,7 +89,7 @@
                     <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
                     {{ form.content }}
                     {% if form.content.errors %}
-                    <div class="error-message">{{ form.content.errors }}</div>
+                        <div class="error-message">{{ form.content.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -95,7 +97,7 @@
                     <label for="{{ form.level.id_for_label }}">{{ form.level.label }}</label>
                     {{ form.level }}
                     {% if form.level.errors %}
-                    <div class="error-message">{{ form.level.errors }}</div>
+                        <div class="error-message">{{ form.level.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -103,7 +105,7 @@
                     <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
                     {{ form.category }}
                     {% if form.category.errors %}
-                    <div class="error-message">{{ form.category.errors }}</div>
+                        <div class="error-message">{{ form.category.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -111,7 +113,7 @@
                     <label for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
                     {{ form.country }}
                     {% if form.country.errors %}
-                    <div class="error-message">{{ form.country.errors }}</div>
+                        <div class="error-message">{{ form.country.errors }}</div>
                     {% endif %}
                 </div>
             </div>
@@ -130,7 +132,7 @@
                         </div>
                     </div>
                     {% if form.cover_image.errors %}
-                    <div class="error-message">{{ form.cover_image.errors }}</div>
+                        <div class="error-message">{{ form.cover_image.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -138,7 +140,7 @@
                     <label for="{{ form.video_url.id_for_label }}">{{ form.video_url.label }}</label>
                     {{ form.video_url }}
                     {% if form.video_url.errors %}
-                    <div class="error-message">{{ form.video_url.errors }}</div>
+                        <div class="error-message">{{ form.video_url.errors }}</div>
                     {% endif %}
                 </div>
 
@@ -146,7 +148,7 @@
                     <label for="{{ form.cultural_notes.id_for_label }}">{{ form.cultural_notes.label }}</label>
                     {{ form.cultural_notes }}
                     {% if form.cultural_notes.errors %}
-                    <div class="error-message">{{ form.cultural_notes.errors }}</div>
+                        <div class="error-message">{{ form.cultural_notes.errors }}</div>
                     {% endif %}
                 </div>
             </div>
@@ -160,141 +162,253 @@
 </div>
 
 <style>
+/* Contenedor principal centrado */
 .create-lesson-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #FEFAE0;
+    color: #023047;
 }
 
+/* Header del formulario */
 .form-header {
     text-align: center;
     margin-bottom: 2rem;
+    padding: 2rem;
+    background: #FEFAE0;
+    border-radius: 15px;
+    border: 2px solid #FFB703;
 }
 
 .form-header h1 {
-    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    color: #023047;
 }
 
 .form-header p {
-    color: #6c757d;
+    font-size: 1.1rem;
+    color: #023047;
+    opacity: 0.9;
 }
 
+/* Formulario centrado */
 .lesson-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: #FEFAE0;
+    color: #023047;
 }
 
+/* Secciones del formulario */
 .form-sections {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     margin-bottom: 2rem;
 }
 
 .form-section {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: #FEFAE0;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    border: 2px solid #FFB703;
 }
 
 .form-section h2 {
-    color: #2c3e50;
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e9ecef;
+    color: #023047;
+    text-align: center;
 }
 
+/* Grupos de formulario */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
+    font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #495057;
-    font-weight: 500;
+    color: #023047;
+    font-size: 1.1rem;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+/* Asegurar que las etiquetas específicas se muestren */
+.form-group label[for*="content"],
+.form-group label[for*="cultural_notes"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+    color: #023047 !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
-.file-input-container {
-    position: relative;
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #FFB703;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: white;
+    color: #023047;
+    transition: all 0.3s ease;
 }
 
-.file-preview {
-    margin-top: 1rem;
-    text-align: center;
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #FFB703;
+    box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.3);
+    background: white;
 }
 
-.file-preview img {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
-.file-preview p {
-    color: #6c757d;
-    font-size: 0.9rem;
+/* Asegurar que los campos específicos se muestren */
+.form-group textarea[name="content"],
+.form-group textarea[name="cultural_notes"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 150px !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
 }
 
-.error-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+/* Estilos específicos para el campo de contenido */
+.form-group textarea[name="content"] {
+    background: white;
+    color: #023047;
+    border: 2px solid #FFB703;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
+/* Estilos específicos para las notas culturales */
+.form-group textarea[name="cultural_notes"] {
+    background: white;
+    color: #023047;
+    border: 2px solid #FFB703;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+/* Acciones del formulario */
 .form-actions {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+    padding: 2rem;
 }
 
-.btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    font-weight: 500;
-    text-decoration: none;
+.form-actions .btn {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* Botones */
+.btn.btn-primary {
+    background: #FFB703;
+    color: #023047;
+    border: 2px solid #FFB703;
+    font-weight: 600;
     transition: all 0.2s;
 }
 
-.btn-primary {
-    background: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+.btn.btn-primary:hover {
+    background: #e6a800;
+    color: #023047;
+    transform: translateY(-2px);
 }
 
-.btn-primary:hover {
-    background: #0056b3;
+.btn.btn-secondary {
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
-.btn-secondary {
-    background: #6c757d;
-    color: white;
+.btn.btn-secondary:hover {
+    background: #023047;
+    color: #FFB703;
+    transform: translateY(-2px);
 }
 
-.btn-secondary:hover {
-    background: #5a6268;
+/* Mensajes de error */
+.error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-    .form-sections {
-        grid-template-columns: 1fr;
+    .create-lesson-container {
+        padding: 1rem;
     }
     
-    .form-row {
-        grid-template-columns: 1fr;
+    .form-header h1 {
+        font-size: 2rem;
     }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Sobrescribir colores específicos */
+.create-lesson-container, .create-lesson-header, .create-lesson-form {
+    background: #FEFAE0;
+    color: #023047;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: #023047;
+}
+
+/* Debug visual para asegurar que los campos se muestren */
+.form-group {
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group:hover {
+    border-color: #FFB703;
+    background: rgba(255, 183, 3, 0.05);
+}
+
+/* Asegurar que todos los campos del formulario sean visibles */
+.lesson-form .form-group {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 </style>
 

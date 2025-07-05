@@ -151,7 +151,7 @@ class LessonFormTest(TestCase):
             'title': 'Test Lesson',
             'content': 'This is the content of the test lesson.',
             'level': 'beginner',
-            'category': 'grammar',
+            'category': 'slang',
             'country': 'CO',
             'video_url': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
             'cultural_notes': 'Some cultural notes about Colombia.'

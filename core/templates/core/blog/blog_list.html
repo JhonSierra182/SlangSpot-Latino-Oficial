@@ -6,9 +6,9 @@
 {% block extra_css %}
 <style>
     .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #FEFAE0 !important;
+        color: #023047 !important;
         padding: 60px 0;
-        color: white;
     }
     
     .hero-content {
@@ -113,29 +113,30 @@
     }
     
     .create-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: white;
+        background: #023047 !important;
+        color: #FFB703 !important;
+        border: none;
+        font-weight: 600;
+        transition: all 0.2s;
         padding: 12px 24px;
         border-radius: 25px;
         font-size: 1rem;
-        font-weight: 600;
         text-decoration: none;
-        transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
         gap: 8px;
     }
     
     .create-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        color: white;
+        background: #012233 !important;
+        color: #FFB703 !important;
         text-decoration: none;
     }
     
     .blog-section {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
         padding: 60px 0;
-        background: #f8fafc;
     }
     
     .section-title {
@@ -143,7 +144,7 @@
         font-weight: 600;
         text-align: center;
         margin-bottom: 2.5rem;
-        color: #1a202c;
+        color: #023047 !important;
     }
     
     .posts-grid {
@@ -154,7 +155,8 @@
     }
     
     .post-card {
-        background: white;
+        background: #FEFAE0 !important;
+        color: #023047 !important;
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -163,6 +165,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        border: 1px solid #E6A500;
     }
     
     .post-card:hover {
@@ -203,10 +206,10 @@
     }
     
     .category-badge.slang { background: linear-gradient(45deg, #ff6b6b, #ee5a24); color: white; }
-    .category-badge.culture { background: linear-gradient(45deg, #4834d4, #686de0); color: white; }
+    .category-badge.culture { background: #FFB703 !important; color: #023047 !important; }
     .category-badge.tips { background: linear-gradient(45deg, #00b894, #00cec9); color: white; }
     .category-badge.stories { background: linear-gradient(45deg, #fdcb6e, #e17055); color: white; }
-    .category-badge.interviews { background: linear-gradient(45deg, #6c5ce7, #a29bfe); color: white; }
+    .category-badge.interviews { background: #FFB703 !important; color: #023047 !important; }
     
     .post-content {
         padding: 20px;
@@ -229,7 +232,7 @@
     }
     
     .post-card:hover .post-title {
-        color: #667eea;
+        color: #FFB703 !important;
     }
     
     .post-title a {
@@ -268,11 +271,11 @@
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        background: #667eea;
+        background: #FFB703 !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #023047 !important;
         font-weight: 600;
         font-size: 0.75rem;
     }
@@ -338,12 +341,12 @@
         width: 60px;
         height: 60px;
         margin: 0 auto 20px;
-        background: #667eea;
+        background: #FFB703 !important;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #023047 !important;
         font-size: 1.5rem;
     }
     
@@ -387,6 +390,204 @@
         .section-title {
             font-size: 1.6rem;
         }
+    }
+
+    /* Sobrescribir todos los colores específicos */
+    .blog-header, .hero-title, .hero-subtitle, .section-title {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+    }
+
+    .hero-title, .hero-subtitle, .section-title {
+        color: #023047 !important;
+    }
+
+    /* Asegurar que todos los elementos usen la paleta correcta */
+    .blog-container, .blog-header, .filters-section, .post-card, .post-content {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+    }
+
+    .blog-card, .blog-meta, .blog-footer, .badge, .no-blogs-content {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+        border: none !important;
+    }
+
+    .badge {
+        background: #FFB703 !important;
+        color: #023047 !important;
+        font-weight: 600;
+    }
+
+    .category-badge.slang, .category-badge.culture, .category-badge.tips, 
+    .category-badge.stories, .category-badge.interviews {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .blog-overlay {
+        background: rgba(2, 48, 71, 0.08) !important;
+    }
+
+    .post-title, .post-excerpt, .post-meta {
+        color: #023047 !important;
+    }
+
+    .post-card {
+        background: #FEFAE0 !important;
+    }
+
+    .post-content {
+        background: #FEFAE0 !important;
+    }
+
+    .blog-header, .filters-section {
+        background: #FEFAE0 !important;
+    }
+
+    .empty-state {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+    }
+
+    .empty-title, .empty-text {
+        color: #023047 !important;
+    }
+
+    .empty-icon {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .page-btn, .page-info {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+        border-color: #023047 !important;
+    }
+
+    .author-avatar {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    /* Sobrescribir todos los colores blancos y transparentes */
+    .search-bar {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+        border-color: #023047 !important;
+    }
+
+    .search-bar:focus {
+        border-color: #FFB703 !important;
+        background: #FEFAE0 !important;
+    }
+
+    .search-bar::placeholder {
+        color: #023047 !important;
+    }
+
+    .search-icon {
+        color: #023047 !important;
+    }
+
+    .filters-title {
+        color: #023047 !important;
+    }
+
+    .filter-btn {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+        border-color: #023047 !important;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+        background: #FFB703 !important;
+        color: #023047 !important;
+        border-color: #FFB703 !important;
+    }
+
+    .category-badge {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .post-content {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+    }
+
+    .post-title {
+        color: #023047 !important;
+    }
+
+    .post-title a {
+        color: #023047 !important;
+    }
+
+    .post-title a:hover {
+        color: #FFB703 !important;
+    }
+
+    .post-excerpt {
+        color: #023047 !important;
+    }
+
+    .post-meta {
+        color: #023047 !important;
+    }
+
+    .author-avatar {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .stat {
+        color: #023047 !important;
+    }
+
+    .page-btn, .page-info {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+        border-color: #023047 !important;
+    }
+
+    .page-btn:hover {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .empty-state {
+        background: #FEFAE0 !important;
+        color: #023047 !important;
+    }
+
+    .empty-title, .empty-text {
+        color: #023047 !important;
+    }
+
+    .empty-icon {
+        color: #FFB703 !important;
+    }
+
+    /* Sobrescribir colores morados */
+    .category-badge.culture, .category-badge.interviews {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .post-title a:hover {
+        color: #FFB703 !important;
+    }
+
+    .empty-icon {
+        background: #FFB703 !important;
+        color: #023047 !important;
+    }
+
+    .page-btn:hover {
+        background: #FFB703 !important;
+        color: #023047 !important;
     }
 </style>
 {% endblock %}

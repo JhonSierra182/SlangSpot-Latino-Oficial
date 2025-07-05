@@ -163,9 +163,10 @@
     padding: 2rem 1rem;
 }
 
+/* Cambios de colores para armonizar con el home */
 .lessons-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #FEFAE0;
+    color: #023047;
     padding: 3rem 2rem;
     border-radius: 15px;
     margin-bottom: 2rem;
@@ -185,10 +186,11 @@
 }
 
 .filters-section {
-    background: white;
+    background: #FEFAE0;
+    color: #023047;
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
     margin-bottom: 2rem;
 }
 
@@ -216,7 +218,7 @@
 
 .search-box input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #FFB703 !important;
 }
 
 .filters-grid {
@@ -248,7 +250,7 @@
 
 .filter-group select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #FFB703 !important;
 }
 
 .filters-actions {
@@ -256,6 +258,15 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+.filters-actions .btn {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    padding: 1rem 2rem !important;
+    min-width: 180px;
+    text-align: center;
+    justify-content: center;
 }
 
 .lessons-grid {
@@ -366,22 +377,22 @@
     color: white;
 }
 
-.badge.category-grammar {
+.badge.category-slang {
     background-color: #6f42c1;
     color: white;
 }
 
-.badge.category-vocabulary {
+.badge.category-sayings {
     background-color: #fd7e14;
     color: white;
 }
 
-.badge.category-pronunciation {
+.badge.category-expressions {
     background-color: #20c997;
     color: white;
 }
 
-.badge.category-conversation {
+.badge.category-idioms {
     background-color: #e83e8c;
     color: white;
 }
@@ -443,27 +454,37 @@
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
-.btn-primary {
-    background-color: #667eea;
-    color: white;
+.btn.btn-primary {
+    background: #023047;
+    color: #FFB703;
+    border: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.2s;
 }
 
-.btn-primary:hover {
-    background-color: #5a6fd8;
-    transform: translateY(-2px);
+.btn.btn-primary:hover {
+    background: #012233;
+    color: #FFB703;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
+.btn.btn-secondary {
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.2s;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
+.btn.btn-secondary:hover {
+    background: #023047;
+    color: #FFB703;
 }
 
 .btn-warning {
@@ -479,6 +500,130 @@
 .btn-sm {
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
+}
+
+/* Sobrescribir todos los colores específicos */
+.lessons-header, .header-content, .header-content h1, .header-content p {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.header-content h1 {
+    color: #023047 !important;
+}
+
+.header-content p {
+    color: #023047 !important;
+}
+
+/* Sobrescribir colores morados */
+.search-box input:focus {
+    border-color: #FFB703 !important;
+}
+
+.filter-group select:focus {
+    border-color: #FFB703 !important;
+}
+
+/* Asegurar que todos los elementos usen la paleta correcta */
+.lessons-container, .lessons-header, .filters-section, .lesson-card, .lesson-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.lesson-card, .lesson-meta, .lesson-footer, .badge, .no-lessons-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+    border: none !important;
+}
+
+.badge {
+    background: #FFB703 !important;
+    color: #023047 !important;
+    font-weight: 600;
+}
+
+.badge.country, .badge.difficulty-beginner, .badge.difficulty-intermediate, 
+.badge.difficulty-advanced, .badge.category-slang, .badge.category-sayings, 
+.badge.category-expressions, .badge.category-idioms {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.lesson-overlay {
+    background: rgba(2, 48, 71, 0.08) !important;
+}
+
+.lesson-content h3, .lesson-description, .lesson-date {
+    color: #023047 !important;
+}
+
+.lesson-card {
+    background: #FEFAE0 !important;
+}
+
+.lesson-content {
+    background: #FEFAE0 !important;
+}
+
+.filters-section, .lessons-header {
+    background: #FEFAE0 !important;
+}
+
+.filter-group label, .filter-group select {
+    color: #023047 !important;
+}
+
+.filter-group select {
+    background: #FEFAE0 !important;
+    border-color: #023047 !important;
+}
+
+.search-box input {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+    border-color: #023047 !important;
+}
+
+.no-lessons-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.no-lessons-content h3, .no-lessons-content p {
+    color: #023047 !important;
+}
+
+/* Sobrescribir colores blancos restantes */
+.lesson-card {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.lesson-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.lesson-content h3, .lesson-content p, .lesson-meta span, .lesson-date {
+    color: #023047 !important;
+}
+
+.lesson-overlay {
+    background: rgba(2, 48, 71, 0.08) !important;
+}
+
+.lesson-overlay .btn {
+    background: #023047 !important;
+    color: #FFB703 !important;
+}
+
+/* Sobrescribir badges específicos */
+.badge.country, .badge.difficulty-beginner, .badge.difficulty-intermediate,
+.badge.difficulty-advanced, .badge.category-slang, .badge.category-sayings,
+.badge.category-expressions, .badge.category-idioms {
+    background: #FFB703 !important;
+    color: #023047 !important;
 }
 
 @media (max-width: 768px) {

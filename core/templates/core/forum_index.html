@@ -158,6 +158,41 @@
 </div>
 
 <style>
+.forum-header, .forum-section, .forum-list-container {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.btn.btn-primary {
+    background: #023047;
+    color: #FFB703;
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn.btn-primary:hover {
+    background: #012233;
+    color: #FFB703;
+}
+
+.btn.btn-secondary {
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn.btn-secondary:hover {
+    background: #023047;
+    color: #FFB703;
+}
+
+h1, h2, h3, h4, h5, h6, p, .forum-meta, .forum-footer {
+    color: #023047 !important;
+}
+
 .forum-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -170,7 +205,7 @@
     align-items: center;
     margin-bottom: 30px;
     padding: 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #FEFAE0 !important;
     border-radius: 16px;
     color: white;
 }
@@ -208,7 +243,43 @@
 }
 
 .search-form .input-group {
-    max-width: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form .input-group input {
+    font-size: 1.2rem !important;
+    padding: 1rem 1.5rem !important;
+    height: auto !important;
+    border-radius: 10px !important;
+    border: 2px solid #023047 !important;
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.search-form .input-group input:focus {
+    outline: none !important;
+    border-color: #FFB703 !important;
+    box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.1) !important;
+}
+
+.search-form .input-group input::placeholder {
+    color: #6c757d !important;
+    font-size: 1.1rem !important;
+}
+
+.search-form .input-group .btn {
+    font-size: 1.2rem !important;
+    padding: 1rem 1.5rem !important;
+    border-radius: 10px !important;
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border: 2px solid #023047 !important;
+}
+
+.search-form .input-group .btn:hover {
+    background: #012233 !important;
+    color: #FFB703 !important;
 }
 
 .category-filters {
@@ -235,9 +306,9 @@
 }
 
 .category-filter.active {
-    background: #667eea;
-    color: white;
-    border-color: #667eea;
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
 }
 
 .forum-posts {
@@ -297,7 +368,7 @@
 }
 
 .post-title a:hover {
-    color: #667eea;
+    color: #FFB703 !important;
 }
 
 .closed-badge {
@@ -367,13 +438,13 @@
 }
 
 .pagination .page-link {
-    color: #667eea;
-    border-color: #dee2e6;
+    color: #023047 !important;
+    border-color: #023047 !important;
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #667eea;
-    border-color: #667eea;
+    background-color: #023047 !important;
+    border-color: #023047 !important;
 }
 
 @media (max-width: 768px) {
@@ -395,6 +466,137 @@
     .post-stats {
         flex-wrap: wrap;
     }
+}
+
+/* Sobrescribir todos los colores específicos */
+.forum-header, .forum-title, .forum-subtitle {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.forum-header {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.forum-title, .forum-subtitle {
+    color: #023047 !important;
+}
+
+/* Asegurar que todos los elementos usen la paleta correcta */
+.forum-container, .forum-header, .forum-filters, .forum-post, .post-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.forum-post {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.post-title a {
+    color: #023047 !important;
+}
+
+.post-title a:hover {
+    color: #FFB703 !important;
+}
+
+.post-meta, .post-content, .stat-item {
+    color: #023047 !important;
+}
+
+.category-filter {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+    border-color: #023047 !important;
+}
+
+.category-filter:hover {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.category-filter.active {
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
+}
+
+.pin-badge {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.closed-badge {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.empty-state {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.empty-state h3, .empty-state p {
+    color: #023047 !important;
+}
+
+.empty-state-icon {
+    color: #FFB703 !important;
+}
+
+.pagination .page-link {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+    border-color: #023047 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
+}
+
+.search-form .form-control {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+    border-color: #023047 !important;
+}
+
+.search-form .form-control:focus {
+    border-color: #FFB703 !important;
+}
+
+/* Sobrescribir colores morados */
+.forum-header {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.category-filter.active {
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
+}
+
+.post-title a:hover {
+    color: #FFB703 !important;
+}
+
+.pagination .page-link {
+    color: #023047 !important;
+    border-color: #023047 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
+}
+
+.search-form .form-control:focus {
+    border-color: #FFB703 !important;
 }
 </style>
 {% endblock %} 

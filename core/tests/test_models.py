@@ -115,7 +115,7 @@ class LessonModelTest(TestCase):
             content='Test content for the lesson',
             country='CO',
             level='beginner',
-            category='grammar'
+            category='slang'
         )
         self.assertEqual(lesson.title, 'Test Lesson')
         self.assertEqual(lesson.user, self.user)
@@ -171,9 +171,9 @@ class LessonModelTest(TestCase):
             title='Test Lesson',
             content='Test content',
             country='CO',
-            category='vocabulary'
+            category='slang'
         )
-        self.assertEqual(lesson.get_category_display(), 'Vocabulario')
+        self.assertEqual(lesson.get_category_display(), 'Jerga y Slang')
     
     def test_lesson_get_country_display(self):
         """Test: Obtener el display del país"""

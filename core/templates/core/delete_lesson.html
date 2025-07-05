@@ -19,49 +19,39 @@
 </div>
 
 <style>
-.delete-lesson-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+.delete-lesson-container, .delete-lesson-header, .delete-lesson-content {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
 }
 
-.confirmation-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.warning-text {
-    color: #dc3545;
-    font-size: 1.2rem;
-    margin: 1.5rem 0;
-}
-
-.warning-note {
-    color: #6c757d;
-    margin-bottom: 2rem;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    color: white;
+.btn.btn-primary {
+    background: #023047;
+    color: #FFB703;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
-.btn-danger:hover {
-    background-color: #c82333;
+.btn.btn-primary:hover {
+    background: #012233;
+    color: #FFB703;
 }
 
-.form-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+.btn.btn-secondary {
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn.btn-secondary:hover {
+    background: #023047;
+    color: #FFB703;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: #023047 !important;
 }
 </style>
 {% endblock %} 

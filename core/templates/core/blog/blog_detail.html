@@ -6,9 +6,9 @@
 {% block extra_css %}
 <style>
     .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #FEFAE0 !important;
         padding: 60px 0;
-        color: white;
+        color: #023047 !important;
     }
     
     .hero-content {
@@ -53,10 +53,10 @@
     }
     
     .category-badge.slang { background: linear-gradient(45deg, #ff6b6b, #ee5a24); }
-    .category-badge.culture { background: linear-gradient(45deg, #4834d4, #686de0); }
+    .category-badge.culture { background: #FFB703 !important; color: #023047 !important; }
     .category-badge.tips { background: linear-gradient(45deg, #00b894, #00cec9); }
     .category-badge.stories { background: linear-gradient(45deg, #fdcb6e, #e17055); }
-    .category-badge.interviews { background: linear-gradient(45deg, #6c5ce7, #a29bfe); }
+    .category-badge.interviews { background: #FFB703 !important; color: #023047 !important; }
     
     .post-title {
         font-size: 2.5rem;
@@ -164,7 +164,7 @@
     }
     
     .content-text blockquote {
-        border-left: 3px solid #667eea;
+        border-left: 3px solid #FFB703 !important;
         padding-left: 16px;
         margin: 20px 0;
         font-style: italic;
@@ -192,8 +192,8 @@
     }
     
     .like-btn {
-        background: #667eea;
-        color: white;
+        background: #FFB703 !important;
+        color: #023047 !important;
         border: none;
         padding: 10px 18px;
         border-radius: 20px;
@@ -332,12 +332,12 @@
         gap: 8px;
     }
     
-    .back-btn {
+        .back-btn {
         position: fixed;
         bottom: 20px;
         left: 20px;
-        background: #667eea;
-        color: white;
+        background: #FFB703 !important;
+        color: #023047 !important;
         width: 48px;
         height: 48px;
         border-radius: 50%;
@@ -345,15 +345,15 @@
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
         transition: all 0.3s ease;
         z-index: 100;
     }
-    
+
     .back-btn:hover {
-        background: #5a67d8;
+        background: #023047 !important;
         transform: translateY(-2px);
-        color: white;
+        color: #FFB703 !important;
         text-decoration: none;
     }
     
@@ -393,6 +393,162 @@
             height: 44px;
         }
     }
+
+/* Sobrescribir todos los colores específicos */
+.blog-detail-container, .blog-header {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.blog-header, .blog-title, .blog-subtitle {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.blog-title, .blog-subtitle {
+    color: #023047 !important;
+}
+
+/* Asegurar que todos los elementos usen la paleta correcta */
+.blog-container, .blog-header, .blog-content, .related-section {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.blog-content, .blog-meta, .blog-footer {
+    color: #023047 !important;
+}
+
+.related-post {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.related-title, .related-meta {
+    color: #023047 !important;
+}
+
+.like-btn, .share-btn {
+    background: #023047 !important;
+    color: #FFB703 !important;
+    border-color: #023047 !important;
+}
+
+.like-btn:hover, .share-btn:hover {
+    background: #012233 !important;
+    color: #FFB703 !important;
+}
+
+.like-btn.liked {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.like-count {
+    color: #023047 !important;
+}
+
+.back-btn {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.back-btn:hover {
+    background: #023047 !important;
+    color: #FFB703 !important;
+}
+
+.section-title {
+    color: #023047 !important;
+}
+
+.actions-section {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+/* Sobrescribir colores blancos */
+.blog-content, .blog-meta, .blog-footer, .blog-title, .blog-subtitle {
+    color: #023047 !important;
+}
+
+.blog-content p, .blog-content h1, .blog-content h2, .blog-content h3, 
+.blog-content h4, .blog-content h5, .blog-content h6 {
+    color: #023047 !important;
+}
+
+.blog-meta span, .blog-meta a {
+    color: #023047 !important;
+}
+
+.related-title, .related-meta {
+    color: #023047 !important;
+}
+
+.related-post {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.related-post:hover {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.section-title {
+    color: #023047 !important;
+}
+
+.actions-section {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.like-count {
+    color: #023047 !important;
+}
+
+.share-notification {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+/* Sobrescribir elementos específicos con color blanco */
+.blog-header, .blog-content, .blog-meta, .blog-footer {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.blog-content h1, .blog-content h2, .blog-content h3, 
+.blog-content h4, .blog-content h5, .blog-content h6, 
+.blog-content p, .blog-content span, .blog-content a {
+    color: #023047 !important;
+}
+
+/* Sobrescribir colores morados */
+.blog-header {
+    background: #FEFAE0 !important;
+    color: #023047 !important;
+}
+
+.category-badge.culture, .category-badge.interviews {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.blog-content {
+    border-left: 3px solid #FFB703 !important;
+}
+
+.author-avatar {
+    background: #FFB703 !important;
+    color: #023047 !important;
+}
+
+.like-btn, .share-btn {
+    background: #023047 !important;
+    color: #FFB703 !important;
+}
 </style>
 {% endblock %}
 
@@ -461,7 +617,7 @@
             <!-- Post Content -->
             <div class="post-content">
                 {% if post.excerpt %}
-                <div class="content-text" style="font-style: italic; color: #4a5568; background: #f7fafc; padding: 16px; border-radius: 8px; margin-bottom: 24px; border-left: 3px solid #667eea;">
+                <div class="content-text" style="font-style: italic; color: #4a5568; background: #f7fafc; padding: 16px; border-radius: 8px; margin-bottom: 24px; border-left: 3px solid #FFB703 !important;">
                     <strong>Resumen:</strong> {{ post.excerpt }}
                 </div>
                 {% endif %}

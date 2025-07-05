@@ -56,10 +56,10 @@ class Lesson(BaseModel):
     ]
 
     CATEGORY_CHOICES = [
-        ('grammar', _('Gramática')),
-        ('vocabulary', _('Vocabulario')),
-        ('pronunciation', _('Pronunciación')),
-        ('conversation', _('Conversación')),
+        ('slang', _('Jerga y Slang')),
+        ('sayings', _('Dichos Populares')),
+        ('expressions', _('Expresiones Coloquiales')),
+        ('idioms', _('Modismos')),
     ]
 
     COUNTRY_CHOICES = [
@@ -89,7 +89,7 @@ class Lesson(BaseModel):
     title = models.CharField(max_length=200)
     content = models.TextField(default='Contenido pendiente')
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='beginner')
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='grammar')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='slang')
     country = models.CharField(max_length=50, choices=COUNTRY_CHOICES)
     video_url = models.URLField(blank=True, null=True)
     cultural_notes = models.TextField(blank=True, null=True)

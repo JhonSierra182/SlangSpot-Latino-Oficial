@@ -23,7 +23,7 @@
                     Por favor, corrige los errores a continuación.
                 </div>
             {% endif %}
-
+            
             <div class="form-group">
                 <label for="{{ form.title.id_for_label }}" class="form-label">
                     <i class="fas fa-heading"></i>
@@ -95,9 +95,10 @@
     text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
+    background: #FEFAE0;
     border-radius: 16px;
-    color: white;
+    color: #023047;
+    border: 2px solid #FFB703;
 }
 
 .create-post-title {
@@ -108,20 +109,22 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
+    color: #023047;
 }
 
 .create-post-subtitle {
     font-size: 1.1rem;
     opacity: 0.9;
     margin: 0;
+    color: #023047;
 }
 
 .create-post-form-container {
-    background: white;
+    background: #FEFAE0;
     border-radius: 16px;
     padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #FFB703;
 }
 
 .create-post-form {
@@ -138,7 +141,7 @@
 
 .form-label {
     font-weight: 600;
-    color: #333;
+    color: #023047;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -146,27 +149,28 @@
 }
 
 .form-label i {
-    color: #007BFF;
+    color: #FFB703;
 }
 
 .create-post-form input[type="text"],
 .create-post-form select,
 .create-post-form textarea {
     padding: 15px 20px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #FFB703;
     border-radius: 12px;
     font-size: 1rem;
     font-family: inherit;
     transition: all 0.3s ease;
-    background: #f8fafc;
+    background: white;
+    color: #023047;
 }
 
 .create-post-form input[type="text"]:focus,
 .create-post-form select:focus,
 .create-post-form textarea:focus {
     outline: none;
-    border-color: #007BFF;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+    border-color: #FFB703;
+    box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.3);
     background: white;
 }
 
@@ -195,7 +199,7 @@
 }
 
 .form-help i {
-    color: #007BFF;
+    color: #FFB703;
 }
 
 .form-actions {
@@ -221,26 +225,27 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #007BFF 0%, #0056B3 100%);
-    color: white;
+    background: #FFB703;
+    color: #023047;
+    border: 2px solid #FFB703;
 }
 
 .btn-primary:hover {
+    background: #e6a800;
+    color: #023047;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-    color: white;
-    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(255, 183, 3, 0.3);
 }
 
 .btn-secondary {
-    background: #6c757d;
-    color: white;
+    background: transparent;
+    color: #023047;
+    border: 2px solid #023047;
 }
 
 .btn-secondary:hover {
-    background: #5a6268;
-    color: white;
-    text-decoration: none;
+    background: #023047;
+    color: #FFB703;
 }
 
 .alert {
@@ -266,15 +271,15 @@
     .create-post-title {
         font-size: 2rem;
     }
-    
+
     .create-post-form-container {
         padding: 25px;
     }
-    
+
     .form-actions {
         flex-direction: column;
     }
-    
+
     .btn {
         justify-content: center;
     }
